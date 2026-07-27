@@ -1,0 +1,121 @@
+﻿migration related commands
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+   *Customer.cs
+     ~~~~~~~~~~
+   //public int Age { get; set; }    --> customer entity la ipdi extra erunthaley Migration pannum pothu add-column create agum,keela erukkura mathiri Insurance Context la mention panna theva illai,but enna problem na
+   nee mention pannalena default ah Int nu vachu lam create agum,
+   but,Insurance context la ipdi tha erukanumnu mention pannurappa,mention panna mathiri migration la create agum,apram update database moolam update pannikalam
+   but,remove migration kudukkurappa enna problem na Customer.cs and InsuranceContext.cs rendulaium Add panna column pathi entha refference um erukka kudathu,apdi illama eruntha tha migration la dropColumn command generate agum
+   apdi ethachum add panna column pathi ethachum eruntha Drop colum create agathu
+   *InsuraceContext.cs
+    ~~~~~~~~~~~~~~~~~~
+            //entity.Property(e => e.Age)           
+            //    .HasMaxLength(10)
+            //    .IsUnicode(false)
+            //    .HasColumnName("Age");
+
+
+
+   Only i declared in Customer.cs
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+         * public int Age { get; set; }
+
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.AddColumn<int>(
+                name: "Age",
+                schema: "insurance",
+                table: "customers",
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
+        }
+
+
+ I am also declared in customer.cs and InsuranceContext.cs
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                * entity.Property(e => e.Age)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("Age");
+
+
+
+      protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.AddColumn<int>(
+                name: "Age",
+                schema: "insurance",
+                table: "customers",
+                type: "int",
+                unicode: false,
+                maxLength: 10,
+                nullable: false,
+                defaultValue: 0);
+        }
+
+
+   
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+1.
+ *Add-Migration YourMigrationName
+  Update-Database
+
+  //update database kuduthutta migration history table la add agirum ,athukku apram remove-migration panna ,panna mudiyathu,revert pannuna error varum,so migration history table la antha migration record ah delete pannitu inga vanthu remove migration pannalam.
+
+ *Script-migration (ithu normal ah database query script lam tharum)
+  Script-migration -Idempotent   (already table exist ah eruntha itha use pannuvom)-->itha sql server la pooi run pannanum(IfNotExist ah eruntha table create pannu apdinu command ah tharum)
+
+
+
+2.Remove-Migration
+  Remove-Migration -Force
+  Remove-Migration -All
+
+
+
+3.Script-Migration -From MigrationName -To MigrationName
+
+4.Get-Migration
+	
+5.Update-Database YourMigrationName
+
+6.Drop-Database
+
+7.Add-Migration InitialCreate -OutputDir Migrations/MyFolder
+
+8.Get-DbContext
+
+9.Get-DatabaseUpdate
+
+10.Add-Migration YourMigrationName -Force
+
+11.Script-Migration -From MigrationName -To MigrationName -Idempotent
+
+12.Update-Database -Migration YourMigrationName
+
+13.Get-Help Add-Migration
+
+14.Add-Migration YourMigrationName -Context YourDbContext
+
+15.Update-Database -TargetMigration YourMigrationName
+
+16.Update-Database -Script
+
+17.Script-Migration -From MigrationName -To MigrationName -Verbose
+
+18.Get-DbContext -Provider Microsoft.EntityFrameworkCore.SqlServer
+
+19.Script-Migration -From MigrationName -To MigrationName -StartupProject YourStartupProject
+
+20.Add-Migration YourMigrationName -IgnoreChanges

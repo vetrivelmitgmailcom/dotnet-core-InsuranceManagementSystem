@@ -1,0 +1,178 @@
+﻿1)
+program.cs
+~~~~~~~~~~
+
+using CommonUtility;
+using InsuranceManagementSystemMVC.Models;
+using InsuranceManagementSystemMVC.Repository;
+using Microsoft.Extensions.Logging.Console;
+using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
+using Microsoft.AspNetCore.Http;
+using InsuranceManagementSystemMVC.Filters;
+
+namespace InsuranceManagementSystemMVC
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
+
+            #region Serilog
+            InsuranceManagementSystemLogger logger = new InsuranceManagementSystemLogger();
+            logger.BuildConfigure();
+            Log.Information("Insurance Management System Application Started...");
+            #endregion
+
+            #region log
+            ////build pannurathukku munnadi logger add pannanum
+            //#region Logger                      
+            //builder.Logging.ClearProviders();
+            //builder.Logging.AddConsole();               //ithu console la print pannum
+            //builder.Logging.AddDebug();                 //ithu debug la print agum
+            ////builder.Logging.AddEventLog();
+            //#endregion
+            #endregion
+
+
+
+            //// Add services to the container.
+            #region Context
+            var conString = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<InsuranceContext>(option => option.UseSqlServer(conString));
+            #endregion
+
+            builder.Services.AddHttpContextAccessor();
+
+
+            #region Add Filter
+            builder.Services.AddControllersWithViews();       //Default(It will be change when Add AdminAuthenticationFilter globally)
+            builder.Services.AddScoped<AdminAuthenticationFilter>();  //Add Filter to specific controller or action -->     //[ServiceFilter(typeof(AdminAuthenticationFilter))] -->  Add this line at the top of the controller or action
+            #endregion
+
+
+            #region session
+            builder.Services.AddSession();
+
+            //;
+            //builder.Services.AddSession(options =>
+            //{
+            //    options.IdleTimeout = TimeSpan.FromSeconds(1200);
+            //    options.Cookie.HttpOnly = true;
+            //    options.Cookie.IsEssential = true;
+            //});
+            #endregion
+
+            #region set Repository
+            builder.Services.AddScoped<ILoginRepository, LoginRepository>();
+            builder.Services.AddScoped<IPolicyRepository, PolicyRepository>();
+            builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+            builder.Services.AddScoped<INomineeRepository, NomineeRepository>();
+            builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+            #endregion
+
+
+            var app = builder.Build();
+
+            // Configure the HTTP request pipeline.
+            if (!app.Environment.IsDevelopment())
+            {
+                app.UseExceptionHandler("/Home/Error");
+                //app.UseMiddleware<ExceptionMiddleware>()
+            }
+            else
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseHttpsRedirection();    //ithu session la erukkurathukku nu nenaikkuren
+            app.UseStaticFiles();
+            app.UseSession();
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+
+            app.MapControllerRoute(                                         //Default-->note that this method is used in ASP.NET Core 2.x versions and is different from the approach used in ASP.NET Core 3.0 and later versions, which involves using the UseEndpoints middleware to define routes.
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            //;
+            //app.UseEndpoints(endpoints => {
+            //    endpoints.MapControllerRoute(
+            //        name: "default",
+            //        pattern: "{controller=Home}/{action=Index}/{id?}");
+            //});
+
+            app.Run();
+        }
+    }
+}
+
+
+
+2)
+@Customer controller
+~~~~~~~~~~~~~~~~~~~
+namespace InsuranceManagementSystemMVC.Controllers
+{
+
+    [ServiceFilter(typeof(AdminAuthenticationFilter))]  //Add Filter to specific controller(ithu intha controll full ah)
+    public class CustomerController : Controller
+    {
+
+    }
+}
+
+
+
+@Customer controller
+~~~~~~~~~~~~~~~~~~~
+namespace InsuranceManagementSystemMVC.Controllers
+{
+    public class CustomerController : Controller
+    {
+   
+       // GET: CustomerController/RegisterCustomer
+        [HttpGet]
+        [ServiceFilter(typeof(AdminAuthenticationFilter))]    //ipadi panna particular controller kku mattum filter add panalam
+        public IActionResult RegisterCustomer()
+        {}
+     }
+}
+
+
+
+
+3)
+Filter Folder->AdminAuthenticationFilterAttribute.cs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+using InsuranceManagementSystemMVC.Controllers;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+
+
+namespace InsuranceManagementSystemMVC.Filters
+{
+    public class AdminAuthenticationFilter : IActionFilter
+    {
+        public void OnActionExecuting(ActionExecutingContext context)
+        {
+            var adminId = context.HttpContext.Session.GetString("AdminId");
+            if (adminId == null)
+            {
+                context.Result = new RedirectResult("/");
+            }
+        }
+
+        public void OnActionExecuted(ActionExecutedContext context)
+        {
+            // This method is optional and can be used for post-processing tasks after the action method is executed.
+        }
+    }
+
+}
+

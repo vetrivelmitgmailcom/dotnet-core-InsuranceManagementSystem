@@ -1,0 +1,186 @@
+    .no-underline a {
+        text-decoration: none;
+    }
+
+    .navbar-nav .nav-item .nav-link:hover {
+        color: #fff;
+    }
+
+
+    .bs-nav-color {
+        /*bs-bg-opacity: 1;*/
+        background-color: #18187F;
+    }
+
+
+    .text-nav-color {
+        /*bs-bg-opacity: 1;*/
+        color: #18187F;
+    }
+
+    .dropdown-menu {
+        display: none;
+        automatic ah menu hover panrapa open aganum,so athukku munnadi none nu set pannitu hover agurappa block nu set paanum padding: 10px;
+        background-color: #18187F;
+    }
+
+
+    .dropdown-item {
+        color: #ffffff;
+    }
+
+    .dropdown-item:hover {
+        color: #fff;
+        background-color: #3B4ACC;
+        border-radius: 15px;
+    }
+
+    .dropdown-item.active {
+        color: #fff;
+        background-color: #3B4ACC;
+    }
+
+    .dropdown-item {
+        font-size: medium;
+        font-weight: bold;
+    }
+
+    .nav-item:hover .dropdown-menu {
+        display: block;
+    }
+
+
+
+    .navbar-height {
+        height: 50px;
+        margin-top: -5px;
+        margin-bottom: -5px;
+    }
+
+    .nav-link {
+        font-size: larger;
+        font-weight: bold;
+    }
+
+
+    .bg-hero {
+        background-color: #f1f4f9;
+    }
+
+
+    .bg-static-insurance1 {
+        background: url(https://www.surfky.com/assets/sites/surfky/insurances/life-insurance-3443ea858aff244b647492fd923edf6f0313f0a2c73fc9f8f6d1bcf592e8b908.png) center, no-repeat;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+    }
+    /*.bg-hero-addCustomer
+{
+background:url(../images/addCustomerBg.jpg)
+center,
+no-repeat;
+position:relative;
+width: 100%;
+height:100%;
+background-size:cover;
+}*/
+
+
+    .text-darkBlue {
+        color: #5672b9;
+    }
+
+
+    .text-pink {
+        color: #FA7267;
+    }
+
+
+    .bs-card-head {
+        background-color: #484fd2;
+    }
+
+    .form-control,.form-select {
+        border: 1px solid #484fd2;
+    }
+
+    .card-btn:hover {
+        background-color: #484fd2;
+    }
+
+
+    option {
+        /*registerCustomer.html page kku*/
+        font-size: medium;
+        font-weight: bolder;
+    }
+
+
+
+    ul {
+        list-style: none;
+    }
+
+    ul li.bullet {
+        background: url(https://www.fg-a.com/buttons/1-blue-button-chrome.png) no-repeat top left;
+        background-size: 21px;
+        background-position: 0 5px;
+        line-height: 1.5625;
+        padding: 0 0 4px 30px;
+        margin-left: 1em;
+    }
+
+
+    .sub-div1-color {
+        background-color: #F8EEEE;
+    }
+
+    .sub-div2-color {
+        background-color: #eaf0ff;
+    }
+
+
+    .card.transform:hover {
+        transform: translateY(-20px);
+    }
+
+
+    .btn-search {
+        background-color: #1821d6;
+    }
+
+    .btn-search:hover {
+        background-color: #18187F;
+    }
+    /**bread crumb***/
+    .breadcrumb-item + .breadcrumb-item::before {
+        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E");
+    }
+
+    .bg-breadcrumb {
+        background-color: #dfe5f0;
+    }
+
+
+
+/* Animation */
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.blink {
+    animation: blink 1s infinite; /* You can adjust the animation duration as needed */
+}
+    /* Animation */
+

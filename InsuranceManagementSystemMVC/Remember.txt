@@ -1,0 +1,84 @@
+﻿
+//Add Active class to the link
+    <script>
+       
+        $(document).ready(function () {
+            var View = @Html.Raw(Json.Serialize(ViewData["View"]));
+            $('.nav-item a').removeClass('active');
+
+            if (View === "RegisterCustomer") 
+            {
+                $("#RegisterCustomer").addClass('active');
+                $("#Customer").addClass('active');
+            }
+            else if (View === "UpdateCustomer") 
+            {
+
+                $("#CustomerInfo").addClass('active');
+                $("#Customer").addClass('active');
+            }
+            else if (View === "CustomerInfo") 
+            {
+
+                $("#CustomerInfo").addClass('active');
+                $("#Customer").addClass('active');
+            }
+            else if (View === "GetCustomerInfo") {
+
+                $("#GetCustomerInfo").addClass('active');
+                $("#Customer").addClass('active');
+            }
+            else if (View === "CustomerInfoMore") {
+
+                $("#CustomerInfo").addClass('active');
+                $("#Customer").addClass('active');
+            }
+            else if (View === "NomineeInfo") {
+
+                $("#NomineeInfo").addClass('active');
+                $("#Nominee").addClass('active');
+            }
+            else if (View === "AddPolicy") 
+            {
+
+                $("#AddPolicy").addClass('active');
+                $("#Policy").addClass('active');
+            }
+            else if (View === "AdditionalPolicy") {
+
+                $("#CustomerInfo").addClass('active');
+                $("#Customer").addClass('active');
+            }
+            else if (View === "PolicyInfo") 
+            {
+
+                $("#PolicyInfo").addClass('active');
+                $("#Policy").addClass('active');
+            }
+            else if (View === "GetPolicyInfo") 
+            {
+
+                $("#GetPolicyInfo").addClass('active');
+                $("#Policy").addClass('active');
+            }
+            else
+            {
+                $("#Index").addClass('active');
+            }
+        });
+    </script>*@
+
+
+
+    //Alert display inside the RazorSyntax 
+    var viewTo = HttpContextAccessor.HttpContext.Session.GetString("ViewTo");
+
+    if (!string.IsNullOrEmpty(viewTo))
+    {
+        <text>
+            <script>
+                alert('@viewTo');
+            </script>
+        </text>
+    }
+

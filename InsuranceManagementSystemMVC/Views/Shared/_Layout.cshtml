@@ -1,0 +1,241 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="~/images/Insurance.ico">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <base href="http://localhost/Insurance/" target="_self"> -->
+    <meta name="description" content="Insurance Management System">
+    <meta name="keywords" content="HTML,CSS,JavaScript">
+    <meta name="author" content="Vetrivel Murugan">
+    <!-- <meta http-equiv="refresh" content="30"> -->
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    @*    <link rel="stylesheet" href="~/InsuranceManagementSystemMVC.style.css" asp-append-version="true" />*@
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+          integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+</head>
+<body>
+
+    <nav id="menu" class="navbar navbar-expand-xl navbar-dark bs-nav-color sticky-top">
+        <div class="container-fluid">
+            <a id="Index" class="navbar-brand ms-lg-5" asp-controller="Home" asp-action="Index">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS95bbKlzwFrEYCs9o4HAlrhj3-hsGRdIu-Jw&usqp=CAU"
+                     alt="family" class="img-fluid rounded-pill" style="width:50px;height:50px;">&nbsp;&nbsp;<strong>
+                    Z<sup>X</sup>
+                    TERM
+                    INSURANCE
+                </strong>&nbsp;<i class="fa fa-user-clock"></i>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav me-lg-5 my-1">
+                    @*<li class="nav-item">
+                    <a class="nav-link active  me-4" aria-current="page" asp-controller="Home" asp-action="Index"><i class="bi bi-house-fill"></i>&nbsp;Home</a>
+                    </li>*@
+                    <li class="nav-item dropdown">
+                        <a id="Customer" class="nav-link dropdown-toggle me-4" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <i class="bi bi-people-fill"></i>&nbsp;Customer
+                        </a>
+                        <ul class="dropdown-menu border-0">
+                            <li><a id="RegisterCustomer" class="dropdown-item" asp-controller="Customer" asp-action="RegisterCustomer">Registration</a></li>
+                            <li>
+                                <hr class="dropdown-divider bg-white">
+                            </li>
+                            <li><a id="CustomerInfo" class="dropdown-item" asp-controller="Customer" asp-action="CustomerInfo">Customer Information</a></li>
+                            <li>
+                                <hr class="dropdown-divider bg-white">
+                            </li>
+                            <li><a id="GetCustomerInfo" class="dropdown-item" asp-controller="Customer" asp-action="GetCustomerInfo">Get Customer Information</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a id="Nominee" class="nav-link dropdown-toggle me-4" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <i class="fa-solid fa-file-signature"></i>&nbsp;Nominee
+                        </a>
+                        <ul class="dropdown-menu border-0">
+                            <li><a id="NomineeInfo" class="dropdown-item" asp-controller="Nominee" asp-action="NomineeInfo">Nominee Information</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a id="Policy" class="nav-link dropdown-toggle me-4" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <i class="fa-solid fa-file-signature"></i>&nbsp;Policy
+                        </a>
+                        <ul class="dropdown-menu border-0">
+                            <li><a id="PolicyInfo" class="dropdown-item" asp-controller="Policy" asp-action="PolicyInfo">Policy Information</a></li>
+                            <li>
+                                <hr class="dropdown-divider bg-white">
+                            </li>
+                            <li><a id="GetPolicyInfo" class="dropdown-item" asp-controller="Policy" asp-action="GetPolicyInfo">Get Policy Information</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a id="Payments" class="nav-link dropdown-toggle me-4" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <i class="fa-solid fa-money-check-dollar"></i>&nbsp;Payment
+                        </a>
+                        <ul class="dropdown-menu border-0">
+                            <li><a id="AddPayments" class="dropdown-item" asp-controller="Payment" asp-action="AddPayment">Add Payment</a></li>
+                            <li>
+                                <hr class="dropdown-divider bg-white">
+                            </li>
+                            <li><a id="PaymentsInfo" class="dropdown-item" asp-controller="Payment" asp-action="PaymentsInfo">Payment Information</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a id="About" class="nav-link me-4" asp-controller="Home" asp-action="About">About&nbsp;<i class="fa-solid fa-circle-user"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="Logout" class="nav-link me-4 text-white" asp-controller="Login" asp-action="Logout">Logout&nbsp;<i class="fa-solid fa-right-to-bracket fa-fade"></i></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a id="Login" class="nav-link me-4 text-white" asp-controller="Login" asp-action="Index">Login&nbsp;<i class="fa-solid fa-right-to-bracket fa-fade"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @* (or)  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.5/sweetalert2.all.min.js" integrity="sha512-2JsZvEefv9GpLmJNnSW3w/hYlXEdvCCfDc+Rv7ExMFHV9JNlJ2jaM+uVVlCI1MAQMkUG8K83LhsHYx1Fr2+MuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+    @*
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>*@
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @RenderBody()
+
+    <script>
+        //$(document).ready(function () {
+
+        //        //$('.nav-item a').removeClass('active');
+        //        $(".nav-item a").addClass('active');
+        //});
+    </script>
+
+
+
+    <script>
+        $(document).ready(function () {
+            const views = {
+                Index: { nav: '#Index' },
+                About: { nav: '#About'},
+                RegisterCustomer: { nav: '#RegisterCustomer', tab: '#Customer' },
+                AddPolicy: { nav: '#RegisterCustomer', tab: '#Customer' },
+                CustomerInfo: { nav: '#CustomerInfo', tab: '#Customer' },
+                GetCustomerInfo: { nav: '#GetCustomerInfo', tab: '#Customer' },
+                //////////////////////////////////////////////////////////////////
+                CustomerInfoMore_CustomerInfo: { nav: '#CustomerInfo', tab: '#Customer' },
+                CustomerInfoMore_GetCustomerInfo: { nav: '#GetCustomerInfo', tab: '#Customer' },
+                UpdateCustomer_CustomerInfo: { nav: '#CustomerInfo', tab: '#Customer' },
+                UpdateCustomer_GetCustomerInfo: { nav: '#GetCustomerInfo', tab: '#Customer' },
+                AdditionalPolicy_CustomerInfo: { nav: '#CustomerInfo', tab: '#Customer' },
+                AdditionalPolicy_GetCustomerInfo: { nav: '#GetCustomerInfo', tab: '#Customer' },
+                //////////////////////////////////////////////////////////////////
+                NomineeInfo: { nav: '#NomineeInfo', tab: '#Nominee' },
+                PolicyInfo: { nav: '#PolicyInfo', tab: '#Policy' },
+                GetPolicyInfo: { nav: '#GetPolicyInfo', tab: '#Policy' },
+                ///////////////////////////////////////////////////////////////////
+                PolicyInfoMore_PolicyInfo: { nav: '#PolicyInfo', tab: '#Policy' },
+                PolicyInfoMore_GetPolicyInfo: { nav: '#GetPolicyInfo', tab: '#Policy' },
+                PolicyInfoMore_CustomerInfoMore: { nav: '#CustomerInfo', tab: '#Customer' },
+                ///////////////////////////////////////////////////////////////////
+                AddPayments: { nav: '#AddPayments', tab: '#Payments' },
+                PaymentsInfo: { nav: '#PaymentsInfo', tab: '#Payments' }
+            };
+
+            const view = "@Html.Raw(ViewData["View"] ?? "")";                                       //?? is the null-coalescing operator in C#. It is used here to provide a default value of an empty string ("") if the ViewData["View"] property is null or undefined.
+
+            $('.nav-item a').removeClass('active');
+
+            if (views.hasOwnProperty(view)) {
+                $(views[view].nav).addClass('active');
+                if (views[view].tab) {
+                    $(views[view].tab).addClass('active');
+                }
+            } else {
+                $("#Index").addClass('active');
+            }
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var adminId = '@HttpContextAccessor.HttpContext?.Session.GetString("AdminId")';
+            $('#Customer').hide();
+            $('#Nominee').hide();
+            $('#Policy').hide();
+            $('#Payments').hide();
+            $('#About').hide();
+            $('#Login').show();
+            $('#Logout').hide();
+
+            if (adminId !== "") {
+                // Session value exists, hide the textbox
+                $('#Customer').show();
+                $('#Nominee').show();
+                $('#Policy').show();
+                $('#Payments').show();
+                $('#About').show();
+                $('#Login').hide();
+                $('#Logout').show();
+            } else {
+                // Session value does not exist, show the textbox
+                $('#Customer').hide();
+                $('#Nominee').hide();
+                $('#Policy').hide();
+                $('#Payments').hide();
+                $('#About').hide();
+                $('#Login').show();
+                $('#Logout').hide();
+            }
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#Logout').click(function (e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Do you want to logout?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3B4ACC',
+                    confirmButtonText: 'Yes,logout!',
+                    cancelButtonColor: '#d33',
+                    allowOutsideClick: false,
+                    position: 'top-right',
+                    backdrop: 'rgba(0,0,0,0.8)'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '/Logout';
+                    }
+                });
+            });
+        });
+    </script>
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

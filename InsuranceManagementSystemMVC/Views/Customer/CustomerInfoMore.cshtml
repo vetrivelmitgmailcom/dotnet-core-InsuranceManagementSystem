@@ -1,0 +1,355 @@
+﻿@model InsuranceManagementSystemMVC.Models.Customer
+
+@{
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: '@TempData["Title"]',
+                html: '@TempData["SuccessMessage"]<br>@TempData["FooterMessage"]',
+                confirmButtonColor: '#3B4ACC',
+                confirmButtonText: 'OK',
+                allowOutsideClick: false,
+                position: 'center',
+                backdrop: 'rgba(0,0,0,0.9)'
+            });
+        </script>
+    }
+
+
+    HttpContextAccessor.HttpContext?.Session.SetString("customerId", Model.CustomerId.ToString());
+    ViewData["Title"] = "Detailed Information of the Customer";
+
+
+    if (HttpContextAccessor.HttpContext != null)
+    {
+        var viewFrom = HttpContextAccessor.HttpContext.Session.GetString("ViewFrom");
+        switch (viewFrom)
+        {
+            case "CustomerInfo":
+                HttpContextAccessor.HttpContext?.Session.SetString("ViewTo", "CustomerInfo");
+                break;
+            case "GetCustomerInfo":
+                HttpContextAccessor.HttpContext?.Session.SetString("ViewTo", "GetCustomerInfo");
+                break;
+            case "PolicyInfoMore":
+                HttpContextAccessor.HttpContext?.Session.SetString("ViewTo", "CustomerInfo");
+                break;
+            case "CustomerInfoMore":    //manual page load
+                HttpContextAccessor.HttpContext?.Session.SetString("ViewTo", "CustomerInfo");
+                break;
+            default:
+                HttpContextAccessor.HttpContext?.Session.SetString("ViewTo", "Not");
+                break;
+        }
+
+    }
+
+    var viewTo = HttpContextAccessor.HttpContext?.Session.GetString("ViewTo");
+    HttpContextAccessor.HttpContext?.Session.SetString("ViewFrom", "CustomerInfoMore");
+
+    /***************** <a> tag Active *****************/
+    var a = TempData["ViewFrom"];
+    //<text>
+    //        <script>
+    //            alert('@a');
+    //        </script>
+    //    </text>
+
+    switch (TempData["ViewFrom"])
+    {
+        case "CustomerInfo":
+            ViewData["View"] = "CustomerInfoMore_CustomerInfo";
+            break;
+        case "GetCustomerInfo":
+            ViewData["View"] = "CustomerInfoMore_GetCustomerInfo";
+            break;
+        default:
+            ViewData["View"] = "CustomerInfo";
+            break;
+    }
+    TempData["ViewFrom"] = "CustomerInfoMore";
+
+}
+
+
+<div class="container-fluid">
+    <div class="row bg-breadcrumb">
+        <div class="col-lg-12">
+            <div class="container">
+                <div class="row fw-semibold fst-italic my-5">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a asp-controller="Home" asp-action="Index" class="text-decoration-none h5">Home</a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="#" class="text-decoration-none h5">Customer</a></li>
+                            <li class="breadcrumb-item">
+                                <a asp-controller="Customer" asp-action="@viewTo" class="text-decoration-none h5">Customer details</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                <span class="h5">
+                                    Profile for @Html.DisplayFor(model => model.FirstName)&nbsp;@Html.DisplayFor(model => model.LastName)
+                                </span>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="container">
+                <div class="h1 my-lg-3 text-nav-color">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMQ4aKQnBi99oxSf0dk_O7rVG3H1AB_s3kA&usqp=CAU"
+                         alt="family" class="img-fluid rounded-pill" style="width:50px;height:50px;">&nbsp;Customer
+                    Profile
+                </div>
+                <div class="row g-3 my-5 justify-content-center bs-form-view rounded-5 border shadow-lg text-nav-color bg-breadcrumb">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-4 offset-lg-4 my-5">
+                                <center>
+                                    <label class="form-label fw-bold h1">
+                                        Personal Details
+                                    </label>
+                                </center>
+                            </div>
+                            <div class="col-lg-4 float-end">
+                                <a class="btn btn-outline-success float-end mx-2 rounded-pill mt-4 mt-lg-auto" asp-controller="Customer" asp-action="UpdateCustomer" asp-route-customerId="@Model.CustomerId">Update</a>
+                                <a class="btn btn-outline-success float-end mx-2 rounded-pill mt-4 mt-lg-auto" asp-controller="Policy" asp-action="AddPolicy" asp-route-customerId="@Model.CustomerId">Add policy</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayName("Customer Name")
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6 ">
+                        @Html.DisplayFor(model => model.FirstName)&nbsp;@Html.DisplayFor(model => model.LastName)
+                    </div>
+
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayNameFor(model => model.PersonalDetails.First().Dob)
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6">
+                        @Html.DisplayFor(model => model.PersonalDetails.First().Dob)
+                    </div>
+
+
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayNameFor(model => model.PersonalDetails.First().Gender.Gender)
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6">
+                        @Html.DisplayFor(model => model.PersonalDetails.First().Gender.Gender)
+                    </div>
+
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayNameFor(model => model.PersonalDetails.First().MaritalStatus.MaritalStatus)
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6">
+                        @Html.DisplayFor(model => model.PersonalDetails.First().MaritalStatus.MaritalStatus)
+                    </div>
+
+
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayNameFor(model => model.PersonalDetails.First().MobileNumber)
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6">
+                        @Html.DisplayFor(model => model.PersonalDetails.First().MobileNumber)
+                    </div>
+
+
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayNameFor(model => model.PersonalDetails.First().Email)
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="no-underline col-6 col-lg-6">
+                        @Html.DisplayFor(model => model.PersonalDetails.First().Email)
+                    </div>
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayNameFor(model => model.PersonalDetails.First().AadharNumber)
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6">
+                        @Html.DisplayFor(model => model.PersonalDetails.First().AadharNumber)
+                    </div>
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayNameFor(model => model.PersonalDetails.First().PanNumber)
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6">
+                        @Html.DisplayFor(model => model.PersonalDetails.First().PanNumber)
+                    </div>
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayNameFor(model => model.PersonalDetails.First().Street)
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6">
+                        @Html.DisplayFor(model => model.PersonalDetails.First().Street)
+                    </div>
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayNameFor(model => model.PersonalDetails.First().City.City)
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6">
+                        @Html.DisplayFor(model => model.PersonalDetails.First().City.City)
+                    </div>
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayNameFor(model => model.PersonalDetails.First().State.State)
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6">
+                        @Html.DisplayFor(model => model.PersonalDetails.First().State.State)
+                    </div>
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayNameFor(model => model.PersonalDetails.First().Country.Country)
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6">
+                        @Html.DisplayFor(model => model.PersonalDetails.First().Country.Country)
+                    </div>
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayNameFor(model => model.PersonalDetails.First().PostalCode)
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6">
+                        @Html.DisplayFor(model => model.PersonalDetails.First().PostalCode)
+                    </div>
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2 mt-4">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayName("Policy Details")
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1 mt-4"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6 mt-3">
+                        <a id="showPolicyBtn" class="btn btn-outline-primary rounded-pill">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Show&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    </div>
+                    <div class="col-6 col-lg-6 mt-5">
+                    </div>
+                </div>
+
+
+
+                <div id="policyDetails" class="row my-5">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-4 offset-lg-4 mt-5 text-nav-color">
+                                <center>
+                                    <label class="form-label fw-bold h1">
+                                        Policy Details
+                                    </label>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row g-3 mt-3 justify-content-center bs-form-view rounded-5 border shadow-lg text-nav-color bg-breadcrumb">
+                            <div class="col-lg-12">
+                                <table class="table table-hover">
+                                    <caption>List of Policy</caption>
+                                    <thead class="bs-nav-color table-group-divider text-white">
+                                        <tr class="text-center">
+                                            <th scope="col">@Html.DisplayName("#")</th>
+                                            <th scope="col">@Html.DisplayNameFor(model => model.PolicyDetails.First().PolicyValue.AmountOfPeriod)@Html.DisplayName(" (Year(s))")</th>
+                                            <th scope="col">@Html.DisplayNameFor(model => model.PolicyDetails.First().PolicyValue.InsuredDeclaredValue)</th>
+                                            <th scope="col">@Html.DisplayNameFor(model => model.PolicyDetails.First().DateOfIssue)</th>
+                                            <th scope="col">@Html.DisplayNameFor(model => model.PolicyDetails.First().DateOfExpire)</th>
+                                            <th scope="col" colspan="1">@Html.DisplayName("Content")</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-group-divider" id="policyList">
+                                        @{
+                                            var count = 1;
+                                            foreach (var item in Model.PolicyDetails)
+                                            {
+                                                <tr class="text-center">
+                                                    <th scope="row">@count</th>
+                                                    <td>@Html.DisplayFor(modelItem => item.PolicyValue.AmountOfPeriod)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.PolicyValue.InsuredDeclaredValue)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.DateOfIssue)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.DateOfExpire)</td>
+                                                    <td><a class="btn btn-outline-primary me-lg-0 rounded-pill" asp-controller="Policy" asp-action="PolicyInfoMore" asp-route-policyId="@item.PolicyId">&nbsp;&nbsp;View&nbsp;&nbsp;</a></td>
+                                                </tr>
+                                                count++;
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-5"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    // Hide the policy details div on page load
+    $("#policyDetails").hide();
+
+    $('#showPolicyBtn').click(function () {
+        // Toggle the content div with animation
+        $('#policyDetails').toggle(1000, function () {
+            // Change the button text based on the state of the policy details div
+            var isContentVisible = $('#policyDetails').is(':visible');
+            if (isContentVisible) {
+                $('#showPolicyBtn').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hide&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+            } else {
+                $('#showPolicyBtn').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Show&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+            }
+        });
+    });
+</script>

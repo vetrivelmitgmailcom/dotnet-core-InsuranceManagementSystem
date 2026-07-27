@@ -1,0 +1,1019 @@
+﻿@using Azure.Core;
+@model InsuranceManagementSystemMVC.Models.Customer
+@{
+    ViewData["Title"] = "Customer Registration";
+
+
+    HttpContextAccessor.HttpContext?.Session.SetString("ViewFrom", "RegisterCustomer");
+
+    /***************** <a> tag Active *****************/
+    ViewData["View"] = "RegisterCustomer";
+    TempData["ViewFrom"] = "RegisterCustomer";
+
+
+    string emailPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+
+}
+
+
+<div class="container-fluid">
+    <div class="row bg-breadcrumb">
+        <div class="col-lg-12">
+            <div class="container">
+                <div class="row fw-semibold fst-italic my-5">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="text-decoration-none h5">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#" class="text-decoration-none h5">Customer</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><span class="h5">Registration</span></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="container">
+
+                <div class="h1 mt-sm-5 my-lg-3 text-nav-color pt-3">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMQ4aKQnBi99oxSf0dk_O7rVG3H1AB_s3kA&usqp=CAU"
+                         alt="family" class="img-fluid rounded-pill" style="width:50px;height:50px;">&nbsp;Customer Registration
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-5 mt-lg-5">
+                        <img src="https://www.renewbuy.com/sites/default/files/2022-12/Life-Insurance-Page.png" alt="WhyBuyTerm" class="img-fluid mx-auto d-block mt-5">
+                    </div>
+
+                    <div class="col-lg-7">
+                        <form method="post" asp-controller="Customer" asp-action="RegisterCustomer" novalidate>
+                            @Html.AntiForgeryToken()
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="card my-5 mx-2 mx-lg-0 text-center rounded-5 shadow-lg p-3 mb-5 bg-white rounded">
+                                <div class="card-header h4 bs-card-head text-white rounded">
+                                    Register Customer Details &nbsp;<i class="fa fa-users"></i>
+                                </div>
+                                <div class="card-body fw-bolder">
+                                    <h5 class="card-title"></h5>
+
+
+                                    <div class="row g-3">
+                                        <div class="col-lg-6">
+                                            <input asp-for="CustomerId" type="hidden" />
+                                            <input asp-for="StatusId" type="hidden" value="1" />
+                                            <label asp-for="FirstName" class="form-label"></label>
+                                            <input asp-for="FirstName" class="form-control" placeholder="Vetrivel" required/>
+                                            <span asp-validation-for="FirstName" class="text-danger fst-italic text-end"></span>
+                                            <div id="FirstName_Validation" class="invalid-feedback fst-italic text-end">
+                                                Please enter First Name
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label asp-for="LastName" class="form-label"></label>
+                                            <input asp-for="LastName" class="form-control" placeholder="Murugan" required/>
+                                            <span asp-validation-for="LastName" class="text-danger fst-italic text-end"></span>
+                                            <div id="LastName_Validation" class="invalid-feedback fst-italic text-end">
+                                                Please enter Last Name
+                                            </div>
+                                        </div>
+
+                                        <input asp-for="PersonalDetails.First().CustomerId" type="hidden" />
+                                        <input asp-for="PersonalDetails.First().PersonalId" type="hidden" />
+                                        <div class="col-lg-4 flex-lg-wrap">
+                                            <label asp-for="PersonalDetails.First().GenderId" class="form-label">Gender&nbsp;&nbsp;<i class="fa fa-person-half-dress fa-xl"></i></label>
+                                            <div class="form-control-plaintext fw-normal">
+                                                <div class="form-check form-check-inline">
+                                                    <input asp-for="PersonalDetails.First().GenderId" class="form-check-input" type="radio" value="1" required>
+                                                    <label class="form-check-label" for="male">
+                                                        M
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input asp-for="PersonalDetails.First().GenderId" class="form-check-input" type="radio" value="2" required>
+                                                    <label class="form-check-label" for="female">
+                                                        F
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input asp-for="PersonalDetails.First().GenderId" class="form-check-input" type="radio" value="3" required>
+                                                    <label class="form-check-label" for="transgender">
+                                                        T
+                                                    </label>
+                                                </div>
+                @*                                <span asp-validation-for="PersonalDetails.First().GenderId" class="text-danger fst-italic text-end"></span>*@
+                                            </div>
+                                            <div id="GenderId_Validation" class="invalid-feedback fst-italic text-center">
+                                                Please select gender
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4 flex-lg-wrap">
+                                            <label asp-for="PersonalDetails.First().MaritalStatusId" class="form-label">Marital Status&nbsp;&nbsp;</label>
+                                            <div class="form-control-plaintext fw-normal" id="maritalStatus">
+                                                <div class="form-check form-check-inline">
+                                                    <input asp-for="PersonalDetails.First().MaritalStatusId" class="form-check-input" type="radio" value="0" required>
+                                                    <label class="form-check-label" for="single">
+                                                        Single
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input asp-for="PersonalDetails.First().MaritalStatusId" class="form-check-input" type="radio" value="1" required>
+                                                    <label class="form-check-label" for="married">
+                                                        Married
+                                                    </label>
+                                                </div>
+                                                <span asp-validation-for="PersonalDetails.First().MaritalStatusId" class="text-danger fst-italic text-end"></span>
+                                            </div>
+                                            <div id="MaritalStatusId_Validation" class="invalid-feedback fst-italic text-center">
+                                                Please select Marital status
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <label asp-for="PersonalDetails.First().Dob" class="form-label">Date of Birth&nbsp;&nbsp;<i class="fa-regular fa-calendar-days"></i></label>
+                                            <input asp-for="PersonalDetails.First().Dob" type="date" class="form-control" required>
+                                            <span asp-validation-for="PersonalDetails.First().Dob" class="text-danger fst-italic text-end"></span>
+                                            <div class="invalid-feedback fst-italic text-end">
+                                                Please select Date of birth
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <label asp-for="PersonalDetails.First().MobileNumber" class="form-label"></label>
+                                            <div class="input-group has-validation">
+                                                <span class="input-group-text" id="mobile_symbol">
+                                                    <i class="fa-solid fa-phone"></i>
+                                                </span>
+                                                <input asp-for="PersonalDetails.First().MobileNumber" type="tel" class="form-control" aria-describedby="mobile" placeholder="(e.g. 6369043922)" required />
+                                                <span asp-validation-for="PersonalDetails.First().MobileNumber" class="text-danger fst-italic text-end"></span>
+                                                <div id="MobileNumber_Validation" class="invalid-feedback fst-italic text-end">
+                                                    Please enter Mobile Number
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <label asp-for="PersonalDetails.First().Email" class="form-label"></label>
+                                            <div class="input-group has-validation">
+                                                <span class="input-group-text" id="email_symbol"><i class="fa-solid fa-envelope"></i></span>
+                                                <input asp-for="PersonalDetails.First().Email" class="form-control" type="text" aria-describedby="email" placeholder="vetrivelm.it@gmail.com" required />
+                                                <span asp-validation-for="PersonalDetails.First().Email" class="text-danger fst-italic text-end"></span>
+                                                <div id="Email_Validation" class="invalid-feedback fst-italic text-end">
+                                                    Please enter Email address
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-lg-6">
+                                            <label asp-for="PersonalDetails.First().AadharNumber" class="form-label"></label>
+                                            <input asp-for="PersonalDetails.First().AadharNumber" class="form-control" type="text" placeholder="(format: 1234-1234-1234)" required>
+                                            <span asp-validation-for="PersonalDetails.First().AadharNumber" class="text-danger fst-italic text-end"></span>
+                                            <div id="AadharNumber_Validation" class="invalid-feedback fst-italic text-end">
+                                                Please enter Aadhar number
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-lg-6">
+                                            <label asp-for="PersonalDetails.First().PanNumber" class="form-label"></label>
+                                            <input asp-for="PersonalDetails.First().PanNumber" class="form-control" type="text" placeholder="(e.g. ABCDE1234F)" required>
+                                            <span asp-validation-for="PersonalDetails.First().PanNumber" class="text-danger fst-italic text-end"></span>
+                                            <div id="PanNumber_Validation" class="invalid-feedback fst-italic text-end">
+                                                Please enter PAN number
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-lg-6">
+                                            <label asp-for="PersonalDetails.First().CountryId" class="form-label"></label>
+                                            <select asp-for="PersonalDetails.First().CountryId" asp-items="ViewBag.CountryList" onchange="FillStates(this);" class="form-select text-start" required></select>
+                                            <span asp-validation-for="PersonalDetails.First().CountryId" class="text-danger fst-italic text-end"></span>
+                                            <div class="invalid-feedback fst-italic text-end">
+                                                Please select Country
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <label asp-for="PersonalDetails.First().StateId" class="form-label"></label>
+                                            <select asp-for="PersonalDetails.First().StateId" asp-items="ViewBag.StateList" onchange="FillCities(this);" class="form-select text-start" required></select>
+                                            <span asp-validation-for="PersonalDetails.First().StateId" class="text-danger fst-italic text-end"></span>
+                                            <div class="invalid-feedback fst-italic text-end">
+                                                Please select State
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-lg-8">
+                                            <label asp-for="PersonalDetails.First().CityId" class="form-label"></label>
+                                            <select asp-for="PersonalDetails.First().CityId" asp-items="ViewBag.CityList" class="form-select text-start" required></select>
+                                            <span asp-validation-for="PersonalDetails.First().CityId" class="text-danger fst-italic text-end"></span>
+                                            <div class="invalid-feedback fst-italic text-end">
+                                                Please select City
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label asp-for="PersonalDetails.First().PostalCode" class=" form-label"></label>
+                                            <input asp-for="PersonalDetails.First().PostalCode" class="form-control" placeholder="626104" required>
+                                            <span asp-validation-for="PersonalDetails.First().PostalCode" class="text-danger fst-italic text-end"></span>
+                                            <div id="PostalCode_Validation" class="invalid-feedback fst-italic text-end">
+                                                Please enter Pincode
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-lg-12">
+                                            <label asp-for="PersonalDetails.First().Street" class="form-label">Address&nbsp;<i class="fa fa-map-marker-alt"></i></label>
+                                            <textarea asp-for="PersonalDetails.First().Street" class="form-control" rows="3" placeholder="Enter your address here (e.g. 123 Main St, Anytown, India)" required></textarea>
+                                            <span asp-validation-for="PersonalDetails.First().Street" class="text-danger fst-italic text-end"></span>
+                                            <div id="Street_Validation" class="invalid-feedback fst-italic text-end">
+                                                Please enter your address
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-lg-12">
+                                            <div class="d-grid gap-2">
+                                                <button type="submit" id="submit" class="btn btn-primary  text-white fw-semibold card-btn">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    /********************************** Validation **********************************/
+
+$(document).ready(function() {
+    var today = new Date();
+    var day = today.getDate();
+    var month = today.getMonth() + 1; // January is 0
+    var year = today.getFullYear();
+    if (day < 10) {
+        day = '0' + day;
+    }
+    if (month < 10) {
+        month = '0' + month;
+    }
+    var formattedDate_today = year + '-' + month + '-' + day;
+    $('#Dob').attr('max', formattedDate_today);
+});
+
+
+    $(document).ready(function () {
+        // Add 'required' class to all required fields
+        $('form :input[required]').addClass('required');
+
+        var mobile_valid_ajax=false;
+        var pan_valid_ajax=false;
+        var aadhar_valid_ajax=false;
+        var email_valid_ajax = false;
+        // On form submit, validate required fields
+        $('form').submit(function () {         //$('form').submit(function (event) {
+            var valid = true;
+
+            $('.required').each(function () {
+                if ($(this).val() === '' || $(this).val() === null) {
+                    valid = false;
+                    $(this).addClass('is-invalid');
+                }
+                else {
+                    $(this).removeClass('is-invalid');
+                }
+            });
+
+
+            // Validate required radio buttons
+            $('input[type="radio"].required').each(function () {
+                var name = $(this).attr('name');
+                if ($('input[name="' + name + '"]:checked').length === 0) {
+                    valid = false;
+                    $('input[name="' + name + '"]').addClass('is-invalid');
+                    //$("#GenderId_Validation").show();
+                }
+                else
+                {
+                    $('input[name="' + name + '"]').removeClass('is-invalid');
+                    //$("#GenderId_Validation").hide();
+                }
+            });
+
+            ////////////////////////////////////////////////////////////////////////////////
+
+            // On input change, remove 'is-invalid' class if field is no longer empty
+            $('form :input.required').on('input', function () {
+                if ($(this).val() !== '' && $(this).val() !== null) {
+                   
+                    $(this).removeClass('is-invalid');
+                }
+                else {
+                    valid = false;
+                    $(this).addClass('is-invalid');
+                }
+            });
+
+            // On select change, remove 'is-invalid' class if field is no longer empty
+            $('select.required').change(function () {
+                if ($(this).val() !== '' && $(this).val() !== null) {
+                    
+                    $(this).removeClass('is-invalid');
+                }
+            });
+
+            // On radio button change, remove 'is-invalid' class from all radio buttons with the same name
+            $('input[type="radio"].required').change(function () {
+                var name = $(this).attr('name');
+               
+                $('input[name="' + name + '"]').removeClass('is-invalid');
+            });
+
+            // On textarea change, remove 'is-invalid' class if field is no longer empty
+            $('textarea.required').on('input', function () {
+                if ($(this).val() !== '' && $(this).val() !== null) {
+                    
+                    $(this).removeClass('is-invalid');
+                }
+                else {
+                    valid = false;
+                    $(this).addClass('is-invalid');
+                }
+            });
+            /***************************************************************************************** */
+
+
+
+            /****************************************start************************************************* */
+
+           //  Validate First Name field
+            var firstNameInput = $("#FirstName");
+            var firstNameValue = firstNameInput.val();
+            var firstNamePattern = /^[A-Z][a-z]*$/;  //^[A-Z][a-zA-Z]*$
+
+
+            if(firstNameValue === '') {
+                valid = false;
+                firstNameInput.addClass('is-invalid');
+                $("#FirstName_Validation").text("Please enter Firstname");
+            } else if (!firstNamePattern.test(firstNameValue)) {
+                valid = false;
+                firstNameInput.addClass('is-invalid');
+                $("#FirstName_Validation").text("Please enter valid firstname (e.g. Vetrivel)");
+            } else {
+                firstNameInput.removeClass('is-invalid');
+            }
+
+
+
+            //// Validate First Name field on change
+            $("#FirstName").on("input", function () {
+                var input = $(this).val();
+                var pattern = /^[A-Z][a-z]*$/;  //^[A-Z][a-zA-Z]*$
+
+                if ($(this).val() === '') {
+                    valid = false;
+                    $(this).addClass('is-invalid');
+                    $("#FirstName_Validation").text("Please enter Firstname");
+                }
+                else if (!pattern.test(input)) {
+                    valid = false;
+                    $(this).addClass('is-invalid');
+                    $("#FirstName_Validation").text("Please enter valid firstname (e.g. Vetrivel)");
+                }
+                else {
+                    $(this).removeClass('is-invalid');
+                }
+            });
+
+
+
+            //// Validate Last Name field
+            var lastNameInput = $("#LastName");
+            var lastNameValue = lastNameInput.val();
+            var lastNamePattern = /^[A-Z][a-z]*$/;  //^[A-Z][a-zA-Z]*$
+
+            if (lastNameValue === '') {
+                valid = false;
+                lastNameInput.addClass('is-invalid');
+                $("#LastName_Validation").text("Please enter Lastname");
+            } else if (!lastNamePattern.test(lastNameValue)) {
+                valid = false;
+                lastNameInput.addClass('is-invalid');
+                $("#LastName_Validation").text("Please enter valid lastname (e.g. Murugan)");
+            } else {
+                lastNameInput.removeClass('is-invalid');
+            }
+
+
+
+            //// Validate Last Name field on change
+            $("#LastName").on("input", function () {
+                var input = $(this).val();
+                var pattern = /^[A-Z][a-z]*$/;  //^[A-Z][a-zA-Z]*$
+
+                if ($(this).val() === '') {
+                    valid = false;
+                    $(this).addClass('is-invalid');
+                    $("#LastName_Validation").text("Please enter Lastname");
+                }
+                else if (!pattern.test(input)) {
+                    valid = false;
+                    $(this).addClass('is-invalid');
+                    $("#LastName_Validation").text("Please enter valid lastname (e.g. Murugan)");
+                }
+                else {
+                    $(this).removeClass('is-invalid');
+                }
+            });
+
+
+            // Validate Gender field
+            if ($('input[name="GenderId"]:checked').length > 0) {
+                   $("#GenderId_Validation").hide();
+            } else {
+                   $("#GenderId_Validation").show();
+            }
+
+
+            // Validate Gender field on change
+            $('input[name="GenderId"]').change(function () {
+            if ($('input[name="GenderId"]:checked').length > 0) {
+                   $("#GenderId_Validation").hide();
+            } else {
+                   $("#GenderId_Validation").show();
+            }
+            });
+
+
+            // Validate MaritalStatus field
+            if ($('input[name="MaritalStatusId"]:checked').length > 0) {
+                $("#MaritalStatusId_Validation").hide();
+            } else {
+                   $("#MaritalStatusId_Validation").show();
+            }
+
+            
+            // Validate MaritalStatus field on change
+            $('input[name="MaritalStatusId"]').change(function () {
+            if ($('input[name="MaritalStatusId"]:checked').length > 0) {
+                   $("#MaritalStatusId_Validation").hide();
+            } else {
+                    $("#MaritalStatusId_Validation").show();
+            }
+            });
+
+            /////vvvv
+
+
+
+            // Validate Mobile Number field
+            var mobileNumberInput = $("#MobileNumber");
+            var mobileNumberValue = mobileNumberInput.val();
+            var mobileNumberPattern = /^\d{10}$/;
+
+            if (mobileNumberValue === '') {
+                valid = false;
+                mobileNumberInput.addClass('is-invalid');
+                $("#MobileNumber_Validation").text("Please enter Mobile Number");
+            } else if (!mobileNumberPattern.test(mobileNumberValue)) {
+                valid = false;
+                mobileNumberInput.addClass('is-invalid');
+                $("#MobileNumber_Validation").text("Please enter valid 10 digits Mobile Number");
+            } else {
+                $.ajax({
+                    type: "Get",
+                    url: "/Customer/CheckMobileNumberExist/?mobileNumber=" + mobileNumberValue,
+                    dataType: "json",
+                    success: function (res) {
+                        if (res) {
+                            mobile_valid_ajax = false;
+                            mobileNumberInput.addClass('is-invalid');
+                            $("#MobileNumber_Validation").text("Mobile number Already Exist");
+                        }
+                        else {
+                            mobile_valid_ajax = true;
+                            mobileNumberInput.removeClass('is-invalid');
+                        }
+                    },
+                    error: function (req, status, error) {
+                        console.log(req.responseText);
+                        console.log(status);
+                        console.log(error);
+                    }
+                });
+            }
+
+
+
+            // Validate Mobile Number field on change
+            $("#MobileNumber").on("input", function () {
+                var input = $(this).val();
+                var pattern = /^\d{10}$/;
+
+                if ($(this).val() === '') {
+                    valid = false;
+                    $(this).addClass('is-invalid');
+                    $("#MobileNumber_Validation").text("Please enter Mobile Number");
+                }
+                else if (!pattern.test(input)) {
+                    valid = false;
+                    $(this).addClass('is-invalid');
+                    $("#MobileNumber_Validation").text("Please enter valid 10 digits Mobile Number");
+                }
+                else {
+                    $.ajax({
+                        type: "Get",
+                        url: "/Customer/CheckMobileNumberExist/?mobileNumber=" + input,
+                        dataType: "json",
+                        success: function (res) {
+                            console.log(res);
+                            if (res) {
+                                mobile_valid_ajax = false;
+                                $("#MobileNumber").addClass('is-invalid');
+                                $("#MobileNumber_Validation").text("Mobile number Already Exist");
+                            }
+                            else {
+                                mobile_valid_ajax = true;
+                                $("#MobileNumber").removeClass('is-invalid');
+                            }
+                        },
+                        error: function (req, status, error) {
+                            console.log(req.responseText);
+                            console.log(status);
+                            console.log(error);
+                        }
+                    });
+                }
+            });
+
+
+
+
+            // Validate Email field
+            var emailInput = $("#Email");
+            var emailValue = emailInput.val();
+            var emailPattern = @Html.Raw("'" + emailPattern + "'");
+            var _emailPattern = new RegExp(emailPattern);
+
+            if (emailValue === '') {
+                valid = false;
+                emailInput.addClass('is-invalid');
+                $("#Email_Validation").text("Please enter Email");
+            } else if (!_emailPattern.test(emailValue)) {
+                valid = false;
+                emailInput.addClass('is-invalid');
+                $("#Email_Validation").text("Please enter valid Email");
+            } else {
+                $.ajax({
+                    type: "Get",
+                    url: "/Customer/CheckEmailExist/?email=" + emailValue,
+                    dataType: "json",
+                    success: function (res) {
+                        console.log(res);
+                        if (res) {
+                            email_valid_ajax = false;
+                            emailInput.addClass('is-invalid');
+                            $("#Email_Validation").text("Email Already Exist");
+                        }
+                        else {
+                            email_valid_ajax = true;
+                            emailInput.removeClass('is-invalid');
+                        }
+                    }
+                });
+            }
+
+
+
+
+            // Validate Email field on change
+            $("#Email").on("input", function () {
+                var input = $(this).val();
+                var emailPattern = @Html.Raw("'" + emailPattern + "'");
+                var pattern = new RegExp(emailPattern);
+
+                if ($(this).val() === '') {
+                    valid = false;
+                    $(this).addClass('is-invalid');
+                    $("#Email_Validation").text("Please enter Email");
+                }
+                else if (!pattern.test(input)) {
+                    valid = false;
+                    $(this).addClass('is-invalid');
+                    $("#Email_Validation").text("Please enter valid Email");
+                }
+                else {
+                    $.ajax({
+                        type: "Get",
+                        url: "/Customer/CheckEmailExist/?email=" + input,
+                        dataType: "json",
+                        success: function (res) {
+                            console.log(res);
+                            if (res) {
+                                email_valid_ajax = false;
+                                $("#Email").addClass('is-invalid');
+                                $("#Email_Validation").text("Email Already Exist");
+                            }
+                            else {
+                                email_valid_ajax = true;
+                                $("#Email").removeClass('is-invalid');
+                            }
+                        },
+                        error: function (req, status, error) {
+                            console.log(req.responseText);
+                            console.log(status);
+                            console.log(error);
+                        }
+                    });
+                }
+            });
+
+
+
+            // Validate Aadhar Number field
+            var aadharNumberInput = $("#AadharNumber");
+            var aadharNumberValue = aadharNumberInput.val();
+            var aadharNumberPattern = /^[0-9]{4}-[0-9]{4}-[0-9]{4}$/;
+
+            if (aadharNumberValue === '') {
+                valid = false;
+                aadharNumberInput.addClass('is-invalid');
+                $("#AadharNumber_Validation").text("Please enter Aadhar Number");
+            } else if (!aadharNumberPattern.test(aadharNumberValue)) {
+                valid = false;
+                aadharNumberInput.addClass('is-invalid');
+                $("#AadharNumber_Validation").text("Please enter Aadhar Number in this format 1234-1234-1234");
+            } else {
+                aadharNumberInput.removeClass('is-invalid');
+
+                $.ajax({
+                    type: "Get",
+                    url: "/Customer/CheckAadharNumberExist/?aadharNumber=" + aadharNumberValue,
+                    dataType: "json",
+                    success: function (res) {
+                        console.log(res);
+                        if (res) {
+                            aadhar_valid_ajax = false;
+                            aadharNumberInput.addClass('is-invalid');
+                            $("#AadharNumber_Validation").text("AadharNumber Already Exist");
+                        }
+                        else {
+                            aadhar_valid_ajax = true;
+                            aadharNumberInput.removeClass('is-invalid');
+                        }
+                    }
+                });
+            }
+
+
+
+            // Validate Aadhar Number field on change
+            $("#AadharNumber").on("input", function () {
+                var input = $(this).val();
+                var pattern = /^[0-9]{4}-[0-9]{4}-[0-9]{4}$/;
+
+                if ($(this).val() === '') {
+                    valid = false;
+                    $(this).addClass('is-invalid');
+                    $("#AadharNumber_Validation").text("Please enter Aadhar number");
+                }
+                else if (!pattern.test(input)) {
+                    valid = false;
+                    $(this).addClass('is-invalid');
+                    $("#AadharNumber_Validation").text("Please enter valid Aadhar number in this format 1234-1234-1234");
+                }
+                else {
+                    $.ajax({
+                        type: "Get",
+                        url: "/Customer/CheckAadharNumberExist/?aadharNumber=" + input,
+                        dataType: "json",
+                        success: function (res) {
+                            console.log(res);
+                            if (res) {
+                                aadhar_valid_ajax = false;
+                                $("#AadharNumber").addClass('is-invalid');
+                                $("#AadharNumber_Validation").text("Aadhar number Already Exist");
+                            }
+                            else {
+                                aadhar_valid_ajax = true;
+                                $("AadharNumber").removeClass('is-invalid');
+                            }
+                        },
+                        error: function (req, status, error) {
+                            console.log(req.responseText);
+                            console.log(status);
+                            console.log(error);
+                        }
+                    });
+                }
+            });
+
+
+
+            // Validate PAN Number field
+            var panNumberInput = $("#PanNumber");
+            var panNumberValue = panNumberInput.val();
+            var panNumberPattern = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+
+            if (panNumberValue === '') {
+                valid = false;
+                panNumberInput.addClass('is-invalid');
+                $("#PanNumber_Validation").text("Please enter Pan Number");
+            } else if (!panNumberPattern.test(panNumberValue)) {
+                valid = false;
+                panNumberInput.addClass('is-invalid');
+                $("#PanNumber_Validation").text("Please enter valid Pan Number in this format ABCDE1234F");
+            } else {
+                panNumberInput.removeClass('is-invalid');
+
+                $.ajax({
+                    type: "Get",
+                    url: "/Customer/CheckPANExist/?panNumber=" + panNumberValue,
+                    dataType: "json",
+                    success: function (res) {
+                        console.log(res);
+                        if (res) {
+                            pan_valid_ajax = false;
+                            panNumberInput.addClass('is-invalid');
+                            $("#PanNumber_Validation").text("Pan Number Already Exist");
+                        }
+                        else {
+                            pan_valid_ajax = true;
+                            panNumberInput.removeClass('is-invalid');
+                        }
+                    },
+                    error: function (req, status, error) {
+                        console.log(req.responseText);
+                        console.log(status);
+                        console.log(error);
+                    }
+                });
+            }
+
+
+            // Validate PAN Number field on change
+            $("#PanNumber").on("input", function () {
+                var input = $(this).val();
+                var pattern = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+
+                if ($(this).val() === '') {
+                    valid = false;
+                    $(this).addClass('is-invalid');
+                    $("#PanNumber_Validation").text(" Please enter PAN number");
+                }
+                else if (!pattern.test(input)) {
+                    valid = false;
+                    $(this).addClass('is-invalid');
+                    $("#PanNumber_Validation").text("Please enter valid PAN number in this format ABCDE1234F");
+                }
+                else {
+                    $.ajax({
+                        type: "Get",
+                        url: "/Customer/CheckPANExist/?panNumber=" + input,
+                        dataType: "json",
+                        success: function (res) {
+                            console.log(res);
+                            if (res) {
+                                pan_valid_ajax = false;
+                                $("#PanNumber").addClass('is-invalid');
+                                $("#PanNumber_Validation").text("Pan Number Already Exist");
+                            }
+                            else {
+                                pan_valid_ajax = true;
+                                $("#PanNumber").removeClass('is-invalid');
+                            }
+                        },
+                        error: function (req, status, error) {
+                            console.log(req.responseText);
+                            console.log(status);
+                            console.log(error);
+                        }
+                    });
+                }
+            });
+
+
+            /////vvvv
+
+            // Validate Postal code field
+            var postalCodeInput = $("#PostalCode");
+            var postalCodeValue = postalCodeInput.val();
+            var postalCodePattern = /^\d{6}$/;
+
+            if (postalCodeValue === '') {
+                valid = false;
+                postalCodeInput.addClass('is-invalid');
+                $("#PostalCode_Validation").text("Please enter Pin code");
+            } else if (!postalCodePattern.test(postalCodeValue)) {
+                valid = false;
+                postalCodeInput.addClass('is-invalid');
+                $("#PostalCode_Validation").text("Please enter valid 6 digits Pin code");
+            } else {
+                postalCodeInput.removeClass('is-invalid');
+            }
+
+
+
+            // Validate Postal code field on change
+            $("#PostalCode").on("input", function () {
+                var input = $(this).val();
+                var pattern = /^\d{6}$/;
+
+                if ($(this).val() === '') {
+                    valid = false;
+                    $(this).addClass('is-invalid');
+                    $("#PostalCode_Validation").text("Please enter Pin code");
+                }
+                else if (!pattern.test(input)) {
+                    valid = false;
+                    $(this).addClass('is-invalid');
+                    $("#PostalCode_Validation").text("Please enter valid Pin code");
+                }
+                else {
+                    $(this).removeClass('is-invalid');
+                }
+            });
+
+
+            //// Validate Street field
+            var streetInput = $("#Street");
+            var streetValue = streetInput.val();
+            //var streetPattern = /^[a-zA-Z0-9\s,'\/\\.-]{10,}$/;
+            var streetPattern = /^(?!^\s)[a-zA-Z0-9\s,'\/\\.-]{10,}$/;
+
+    
+            if (streetValue === '') {
+                valid = false;
+                streetInput.addClass('is-invalid');
+                $("#Street_Validation").text("Please enter Address");
+            } else if (!streetPattern.test(streetValue)) {
+                valid = false;
+                streetInput.addClass('is-invalid');
+                $("#Street_Validation").text("Address should contain at least 10 characters");
+            } else {
+                streetInput.removeClass('is-invalid');
+            }   
+
+            // Validate Street field on change
+            $("#Street").on("input", function () {
+                var input = $(this).val();
+               //var pattern = /^[a-zA-Z0-9\s,'\/\\.-]{10,}$/;
+                var pattern = /^(?!^\s)[a-zA-Z0-9\s,'\/\\.-]{10,}$/;
+
+                if ($.trim($(this).val()) === '') {
+                    valid = false;
+                    $(this).addClass('is-invalid');
+                    $("#Street_Validation").text("Please enter Address");
+                }
+                else if (!pattern.test(input)) {
+                    valid = false;
+                    $(this).addClass('is-invalid');
+                    $("#Street_Validation").text("Please enter valid Address,It should contain at least 10 characters");
+                }
+                else {
+                    $(this).removeClass('is-invalid');
+                }
+            });
+
+          
+            //alert("valid"+valid);
+            //alert("mobile_valid_ajax"+mobile_valid_ajax);
+            //alert("aadhar_valid_ajax"+aadhar_valid_ajax);
+            //alert("email_valid"+email_valid_ajax);
+            //alert("pan_valid_ajax"+pan_valid_ajax);
+
+            if(valid==true && mobile_valid_ajax==true && pan_valid_ajax==true && email_valid_ajax==true && aadhar_valid_ajax==true)
+            {
+              return true;
+            }
+            else
+            {
+              return false;
+            }
+        });
+    });
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $("#AadharNumber").on('keypress', function () {
+            if ($(this).val().length == 4) {
+                $("#AadharNumber").val($(this).val() + "-");
+            } else if ($(this).val().length == 9) {
+                $("#AadharNumber").val($(this).val() + "-");
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#StateId").append('<option value="" selected disabled>..Select State..</option>');
+        $("#CityId").append('<option value="" selected disabled>..Select City..</option>');
+    });
+
+    /*************************Default selected********************************************/
+
+    function FillStates(countryList) {
+        var stateList = $("#StateId");
+        var cityList = $("#CityId");
+        stateList.empty();
+        cityList.empty();
+        $("#CityId").append('<option value="" selected disabled>..Select City..</option>');
+
+        var selectedCountry = countryList.options[countryList.selectedIndex].value;
+
+        if (selectedCountry != null && selectedCountry != '') {
+            $.getJSON("/Customer/GetStatesByCountry", { countryId: selectedCountry }, function (states) {
+                if (states != null && !jQuery.isEmptyObject(states)) {
+                    $.each(states, function (index, state) {
+                        var option = $('<option/>', {
+                            value: state.value,
+                            text: state.text
+                        });
+                        if (state.value === "" && state.text === "..Select State..") {
+                            option.prop('disabled', true);
+                            option.prop('selected', true);
+                        }
+                        stateList.append(option);
+                    });
+                };
+            });
+        }
+        return;
+    }
+
+
+    function FillCities(stateList) {
+        var cityList = $("#CityId");
+        cityList.empty();
+
+        var selectedState = stateList.options[stateList.selectedIndex].value;
+
+        if (selectedState != null && selectedState != '') {
+            $.getJSON("/Customer/GetCitiesByState", { stateId: selectedState }, function (cities) {
+                if (cities != null && !jQuery.isEmptyObject(cities)) {
+                    $.each(cities, function (index, city) {
+                        var option = $('<option/>', {
+                            value: city.value,
+                            text: city.text
+                        });
+                        if (city.value === "" && city.text === "..Select City..") {
+                            option.prop('disabled', true);
+                            option.prop('selected', true);
+                        }
+                        cityList.append(option);
+                    });
+                };
+            });
+        }
+        return;
+    }
+
+
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+@*
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation1');
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>*@
+
+

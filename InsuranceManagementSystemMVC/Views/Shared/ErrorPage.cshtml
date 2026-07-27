@@ -1,0 +1,127 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="row my-2"></div>
+
+<h1 class="text-danger display-3 fw-bold mx-5">Error</h1>
+<h2 class="text-danger display-6 fw-bold mt-3 mx-5">@Model.ErrorMessage</h2>
+
+<div class="row my-4">
+    <div class="col">
+        <a id="showErrorDetails" class="btn btn-outline-danger rounded-pill mx-5">Show Details</a>
+    </div>
+</div>
+
+<div id="errorDetails" class="row my-3">
+    <div class="col-12 col-xxl-6">
+        <h4>Error Details:</h4>
+        <table class="table table-condensed table-responsive">
+            <tr>
+                <td>Error Time:</td>
+                <td>@Model.ErrorTime</td>
+            </tr>
+            <tr>
+                <td>Exception Type:</td>
+                <td>@Model.ExceptionType</td>
+            </tr>
+            <tr>
+                <td>Target Site:</td>
+                <td>@Model.TargetSite</td>
+            </tr>
+            <tr>
+                <td>Error Message:</td>
+                <td>@Model.ErrorMessage</td>
+            </tr>
+            <tr>
+                <td>Inner Exception Message:</td>
+                <td>@Model.InnerExceptionMessage</td>
+            </tr>
+            <tr>
+                <td>Error Source:</td>
+                <td>@Model.Source</td>
+            </tr>
+            <tr>
+                <td>Error Help Link:</td>
+                <td>@Model.HelpLink</td>
+            </tr>
+            <tr>
+                <td>Error HResult:</td>
+                <td>@Model.HResult</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-12 col-xxl-6">
+        <h4>Request Details:</h4>
+        <table class="table table-condensed table-responsive">
+            <tr>
+                <td>Request ID:</td>
+                <td>@Model.RequestId</td>
+            </tr>
+            <tr>
+                <td>Request URL:</td>
+                <td>@Model.RequestUrl</td>
+            </tr>
+            <tr>
+                <td>Error Path:</td>
+                <td>@Model.ErrorPath</td>
+            </tr>
+            <tr>
+                <td>HTTP Method:</td>
+                <td>@Model.HttpMethod</td>
+            </tr>
+            <tr>
+                <td>Referrer URL:</td>
+                <td>@Model.ReferrerUrl</td>
+            </tr>
+            <tr>
+                <td>User Agent:</td>
+                <td>@Model.UserAgent</td>
+            </tr>
+            <tr>
+                <td>User IP Address:</td>
+                <td>@Model.UserIpAddress</td>
+            </tr>
+            <tr>
+                <td>Server Name:</td>
+                <td>@Model.ServerName</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+
+
+<script>
+    $(document).ready(function () {
+        // hide the div with id "myDiv"
+        $("#menu").hide();
+    });
+
+    $("#errorDetails").hide();
+    // Button click handler
+    $('#showErrorDetails').click(function () {
+        // Toggle the content div
+        $('#errorDetails').slideToggle(2500, function () {              
+            // Change the button name based on the state of the content div
+            var isContentVisible = $('#errorDetails').is(':visible');
+            if (isContentVisible) {
+                $('#showErrorDetails').text('Hide Details');
+            } else {
+                $('#showErrorDetails').text('Show Details');
+            }
+        });
+    });
+
+            //toggle,slideToggle,fadeToggle,slideDown,slideUp,Toggoleclass,animate
+    //$(document).ready(function () {
+    //    $("#toggleButton").click(function () {
+    //        $("#content").animate({
+    //            opacity: "toggle",
+    //            height: "toggle"
+    //        }, 500);
+    //    });
+    //});
+</script>

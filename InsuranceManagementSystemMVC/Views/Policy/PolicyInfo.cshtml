@@ -1,0 +1,115 @@
+﻿@model IEnumerable<InsuranceManagementSystemMVC.Models.PolicyDetail>
+
+@{
+    ViewData["Title"] = "Policy Information";
+
+
+    HttpContextAccessor.HttpContext?.Session.SetString("ViewFrom", "PolicyInfo");
+
+
+    /***************** <a> tag Active *****************/
+    ViewData["View"] = "PolicyInfo";
+    TempData["ViewFrom"] = "PolicyInfo";
+}
+
+
+<div class="container-fluid">
+    <div class="row bg-breadcrumb">
+        <div class="col-lg-12">
+            <div class="container">
+                <div class="row fw-semibold fst-italic my-5">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="text-decoration-none h5">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#" class="text-decoration-none h5">Policy</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><span class="h5">Policy details</span></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="container">
+                <div class="h1 my-lg-3 text-nav-color">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMQ4aKQnBi99oxSf0dk_O7rVG3H1AB_s3kA&usqp=CAU"
+                         alt="family" class="img-fluid rounded-pill" style="width:50px;height:50px;">&nbsp;Policy Details
+                </div>
+
+                <div class="row">
+                    <div class="col-8 offset-2 col-lg-4 offset-lg-6">
+                        <input type="text" class="form-control my-3 my-lg-2" id="searchHere" placeholder="Start typing to filter...">
+                    </div>
+                    <div class="col-2 offset-0 col-lg-2">
+                        <div class="d-grid gap-2">
+                            <button type="button" id="clear" class="btn btn-danger my-3 my-lg-2 mb-2 mb-lg-2">Clear</button>
+                            <button type="button" id="GetAllPolicy" class="btn btn-primary my-3 my-lg-2 mb-2 mb-lg-2 btn-search">Get All</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 offset-lg-0">
+                        <div class="table-responsive" id="post-result">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#searchHere").on("keyup", function () {
+            let value = $(this).val().toLowerCase();
+            $("#policyList tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
+
+<script>
+    /*******************************************partial view********************************************/
+    $(document).ready(function () {
+        $('#clear').hide();
+        $("#searchHere").hide();
+        $("#GetAllPolicy").click(
+           function () {
+                $.ajax({
+                    type: "Get",
+                    url: "/Policy/PolicyInfoPartial/",
+                    dataType: "text",
+                    success: function (res) {
+                        console.log('Get all Policy is Successfull')
+                        console.log(res)
+                        $("#GetAllPolicy").hide();
+                        $('#post-result').html(res);
+                        $("#searchHere").show(500);
+                        $('#clear').show();
+
+
+                    },
+                    error: function (req, status, error) {
+                        console.log(res);
+                        console.log(status)
+                        console.log(error);
+                    }
+                });
+            });
+
+
+
+        $("#clear").click(
+            function () {
+                $('#post-result').html("");
+                $("#GetAllPolicy").show();
+                $("#searchHere").hide(500);
+                $("#searchHere").val("");
+                $("#clear").hide();
+            });
+    });
+</script>

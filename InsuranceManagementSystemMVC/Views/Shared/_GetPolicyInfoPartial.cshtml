@@ -1,0 +1,80 @@
+﻿@model IEnumerable<InsuranceManagementSystemMVC.Models.PolicyDetail>
+
+<table class="table table-hover">
+    <caption>List of Policy</caption>
+    <thead class="bs-nav-color table-group-divider text-white">
+        <!--style="top:57px"-->
+        <tr class="text-center">
+            <th scope="col">@Html.DisplayName("#")</th>
+            <th scope="col">@Html.DisplayName("Customer Name")</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.PolicyValue.AmountOfPeriod)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.PolicyValue.InsuredDeclaredValue)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.DateOfIssue)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.DateOfExpire)</th>
+            <th scope="col" colspan="2">@Html.DisplayName("Content")</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider" id="policyList">
+        @{
+            var count = 1;
+            foreach (var item in Model)
+            {
+                <tr class="text-center">
+                    <th scope="row">@count</th>
+                    <td>@Html.DisplayFor(modelItem => item.Customer.FirstName)&nbsp;@Html.DisplayFor(modelItem => item.Customer.LastName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PolicyValue.AmountOfPeriod)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PolicyValue.InsuredDeclaredValue)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DateOfIssue)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DateOfExpire)</td>
+                    <td><a class="btn btn-outline-primary me-lg-0 rounded-pill" asp-controller="Policy" asp-action="PolicyInfoMore" asp-route-policyId="@item.PolicyId">&nbsp;&nbsp;View&nbsp;&nbsp;</a></td>
+                    <td><a class="deletePolicy btn btn-outline-danger rounded-pill" asp-controller="Policy" asp-action="Delete" asp-route-policyId="@item.PolicyId">Delete</a></td>
+                </tr>
+                count++;
+            }
+        }
+    </tbody>
+</table>
+
+
+
+<script>
+    $(document).ready(function () {
+        var viewFrom = '@HttpContextAccessor.HttpContext?.Session.GetString("ViewFrom")';
+
+        $('.deletePolicy').click(function (e) {
+            e.preventDefault();
+            //HttpContextAccessor.HttpContext?.Session.SetString("ViewFrom", "PolicyInfo");    //you cannot use server-side Razor syntax directly in client-side JavaScript. Instead, you need to use an AJAX request to send the data to the server and set the session value there.
+            // var policyId = $(this).attr('asp-route-policyId'); // it is not working
+
+            var hrefValue = $(this).attr('href');
+            var policyId = hrefValue.split('=')[1];     // it is working
+            console.log('href:', hrefValue);
+            console.log('Policy ID:', policyId);
+
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'Do you want to delete this policy?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3B4ACC',
+                confirmButtonText: 'Yes, Delete!',
+                cancelButtonColor: '#d33',
+                allowOutsideClick: false,
+                position: 'center-right',
+                backdrop: 'rgba(0,0,0,0.8)'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    //window.location.href = '/Policy/Delete?policyId=' + policyId;
+                    //window.location.href = hrefValue;
+
+
+                    // Append the viewFrom as a query parameter to the URL
+                    var redirectUrl = hrefValue + '&viewFrom=' + encodeURIComponent(viewFrom);
+                    window.location.href = redirectUrl;
+                }
+            });
+        });
+    });
+
+</script>

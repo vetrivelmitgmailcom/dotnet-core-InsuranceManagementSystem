@@ -1,0 +1,215 @@
+﻿@model IEnumerable<InsuranceManagementSystemMVC.Models.Customer>
+
+
+@{
+    
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: '@TempData["Title"]',
+                html: '@TempData["SuccessMessage"]<br>@TempData["FooterMessage"]',
+                confirmButtonColor: '#3B4ACC',
+                confirmButtonText: 'OK',
+                allowOutsideClick: false,
+                position: 'center',
+                backdrop: 'rgba(0,0,0,0.9)'
+            });
+        </script>
+    }
+
+    ViewData["Title"] = "Customer Information";
+
+
+
+
+    HttpContextAccessor.HttpContext?.Session.SetString("ViewFrom", "GetCustomerInfo");
+
+    /***************** <a> tag Active *****************/
+    ViewData["View"] = "GetCustomerInfo";
+    TempData["ViewFrom"] = "GetCustomerInfo";
+}
+
+
+<div class="container-fluid">
+    <div class="row bg-breadcrumb">
+        <div class="col-lg-12">
+            <div class="container">
+                <div class="row fw-semibold fst-italic my-5">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="text-decoration-none h5">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#" class="text-decoration-none h5">Customer</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><span class="h5">Get Customer details</span></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="container">
+                <div class="h1 my-lg-3 text-nav-color">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMQ4aKQnBi99oxSf0dk_O7rVG3H1AB_s3kA&usqp=CAU"
+                         alt="family" class="img-fluid rounded-pill" style="width:50px;height:50px;">&nbsp;Customer Details
+                </div>
+                <div class="row">
+                    <div class="col-6 offset-0 col-lg-3 offset-lg-7">
+                        <input type="text" class="form-control mb-3 mb-lg-2" id="customerId" placeholder="Customer Id">
+                    </div>
+                    <div class="col-12 col-lg-2 offset-lg-0">
+                        <div class="d-grid gap-2">
+                            <button type="button" name="" id="searchBtn" class="btn btn-primary mb-2 mb-lg-2 btn-search">Search</button>
+                            <button type="button" id="clear" class="btn btn-danger mb-2 mb-lg-2">Clear</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive" id="post-result">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    /*******************************************partial view********************************************/
+    $(document).ready(function () {
+
+            function validateNumberInput(inputValue) {
+              // check if the input value is empty
+              if (inputValue.trim() === '') 
+              {
+                return false;
+              }
+
+              // regular expression to match only numbers
+              var numbersOnlyRegex = /^[0-9]+$/;
+
+              // test the input value against the regular expression
+              if (numbersOnlyRegex.test(inputValue)) 
+              {
+                return true;
+              }
+              else
+              {
+                return false;
+              }
+            }
+
+
+        $("#clear").hide();
+        $("#searchBtn").click(function () 
+            {
+                var customerId = $("#customerId").val();
+
+                if(customerId==="")
+                {
+                    Swal.fire({
+                    icon: 'info',
+                    title: 'Customer Id is Empty!',
+                    html: 'Please enter the Customer Id',
+                    confirmButtonColor: '#3B4ACC',
+                    confirmButtonText: 'OK',
+                    allowOutsideClick: true,
+                    position: 'center',
+                    backdrop: 'rgba(0,0,0,0.7)'
+                    });
+                }
+                else if(!validateNumberInput(customerId))
+                {
+                        //$("#customerId").val("");
+                            Swal.fire({
+                            icon: 'warning',
+                            title: 'Customer Id is Invalid!',
+                            html: 'Please enter the valid Customer Id',
+                            confirmButtonColor: '#3B4ACC',
+                            confirmButtonText: 'OK',
+                            allowOutsideClick: true,
+                            position: 'center',
+                            backdrop: 'rgba(0,0,0,0.7)'
+                            });
+                }
+                else
+                {
+                $.ajax({
+                    type: "Get",
+                    url: "/Customer/GetCustomerInfoPartial/?customerId=" + customerId,
+                    dataType: "text",
+                    success: function (res) {
+                        if(res==="")
+                        {
+                            console.log('Get the Customer is Failed')
+                            //$("#customerId").val("");
+
+                           Swal.fire({
+                            icon: 'warning',
+                            title: 'Records Not Found!',
+                            html: 'A record was not found for the customer Id you entered',
+                            confirmButtonColor: '#3B4ACC',
+                            confirmButtonText: 'OK',
+                            allowOutsideClick: true,
+                            position: 'center',
+                            backdrop: 'rgba(0,0,0,0.7)'
+                            });
+                        }
+                        else
+                        {
+                         console.log('Get the Customer is Successfull')
+                         console.log(res)
+
+                        $('#post-result').html(res);
+                        $("#customerId").hide(500);
+                        $("#customerId").val("");
+                        $("#searchBtn").hide();
+                        $("#clear").show();
+                        }
+                    },
+                    error: function (req, status, error) {
+                        console.log(res);
+                        console.log(status)
+                        console.log(error);
+                    }
+                });
+                }
+            });
+            
+
+
+        $("#clear").click(
+            function () {
+                $('#post-result').html("");
+                $("#searchBtn").show();
+                $("#customerId").show(500);
+                $("#clear").hide();
+            });
+
+    });
+</script>
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: '@Url.Action("GenerateCountries", "Patient")',
+            method: 'GET',
+            success: function (response) {
+                var dropdown = $('#countrydropdown');
+                dropdown.empty();
+                dropdown.append($('<option>Select a Country</option>'))
+                $.each(response, function (index, option) {
+                    dropdown.append($('<option></option>').text(option));
+
+                });
+            },
+
+            error: function () {
+                console.log('Error occurred while fetching data');
+            }
+        });
+    });
+</script>

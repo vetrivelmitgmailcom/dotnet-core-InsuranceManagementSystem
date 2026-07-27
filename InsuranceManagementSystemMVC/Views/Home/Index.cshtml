@@ -1,0 +1,436 @@
+﻿@{
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: '@TempData["Title"]',
+                html: '@TempData["SuccessMessage"]<br>@TempData["FooterMessage"]',
+                confirmButtonColor: '#3B4ACC',
+                confirmButtonText: 'Ok',
+                allowOutsideClick: false,
+                position: 'center',
+                backdrop: 'rgba(0,0,0,0.9)'
+            });
+        </script>
+    }
+
+
+    ViewData["Title"] = "Term Insurance";
+
+
+
+    HttpContextAccessor.HttpContext?.Session.SetString("ViewFrom", "Index");
+
+    /***************** <a> tag Active *****************/
+    ViewData["View"] = "Index";
+}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-lg-6 offset-1 offset-lg-0">
+                        <h1 class="py-5 mt-5 me-2 text-darkBlue">Secure Your Life by Term Insurance</h1>
+                    </div>
+                    <div class="col-8 col-lg-5 offset-4 offset-lg-1">
+                        <img src="https://www.surfky.com/assets/sites/surfky/insurances/life-insurance-3443ea858aff244b647492fd923edf6f0313f0a2c73fc9f8f6d1bcf592e8b908.png"
+                             alt="family" class="img-fluid mt-5">
+                    </div>
+                </div>
+                <div class="row">
+                    <dic class="col-6 col-lg-3 offset-1 offset-lg-0 mt-2">
+                        <img src="~/images/what_term_insurance.png" alt="what_term_insurance" class="img-fluid">
+
+                    </dic>
+                    <div class="col-12 col-lg-9 mt-2 mt-lg-5">
+                        <p class="h3 text-pink text-center">
+                            WHAT IS TERM INSURANCE?
+                        </p>
+                        <p class="h5 text-muted text-start text-lg-start mt-3 mt-lg-4">
+                            Term insurance is a type of life insurance that provides coverage for a specific period of time or
+                            years, i.e., a term. This <a href="#" class="text-decoration-none" title="type of life insurance">
+                                type
+                                of life insurance
+                            </a> provides a financial benefit to the nominee in case of the unfortunate demise of
+                            the insured during the policy term. Term Insurance policies provide high life cover at lower premiums.
+                            For e.g.: Premium for ₹ 1 Crore Term Insurance cover could be as low as ₹ 485* p.m. These fixed premiums
+                            can be paid at once or at regular intervals for the entire policy term or for a limited period. Premium
+                            amount varies basis the type of the premium payment method opted by the buyer.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <img src="~/images/term1.jpg" alt="term1" class="img-fluid mt-5 w-100 rounded">
+        </div>
+    </div>
+
+    <div class="row bs-nav-color mt-5 rounded-3">
+        <div class="col-lg-12">
+            <p class="h4 text-white text-center p-3">
+                REASONS TO BUY TERM INSURANCE ONLINE
+            </p>
+        </div>
+        <div class="col-lg-12">
+            <img src="~/images/WhyBuyTerm.png" alt="WhyBuyTerm" class="img-fluid mx-auto d-block">
+        </div>
+    </div>
+
+    <div class="row sub-div1-color">
+        <div class="col">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p class="h4 text-dark text-lg-start mt-3 mt-lg-4">
+                            <b>WHO SHOULD BUY A TERM INSURANCE POLICY?</b>
+                        </p>
+                        <p class="h5 text-muted text-start text-lg-start mt-3 mt-lg-4">
+                            Anyone with financial dependents should
+                            buy a Term Insurance Policy. This includes married couples, parents, business people and self-employed,
+                            SIP investors, young professionals with dependent parents, and in some cases, even retirees.
+                        </p>
+                        <p class="h5 text-muted text-start text-lg-start mt-3 mt-lg-4">
+                            <a href="#"
+                               class="text-decoration-none">Life insurance</a> premiums paid are deductible from taxable income under
+                            Section 80C<sup>^^</sup> and hence carry a double benefit for taxpayers – protection and tax-saving. The
+                            amount (maturity value) received under a term insurance policy is also tax-exempt subject to conditions
+                            under Section 10(10D)<sup>^^</sup> of the Income Tax Act, 1961<sup>^^</sup>. Term Insurance also has
+                            among the lowest premiums compared to the different types of insurance policies.
+                        </p>
+                        <p class="h5 text-muted text-start text-lg-start mt-3 mt-lg-4">
+                            Hence, individuals who derive any of the
+                            three significant benefits associated with term insurance should consider buying such policies. The
+                            three significant benefits are – life protection, tax-saving and affordable premiums.
+                        </p>
+
+                        <ul class="mt-4">
+                            <li class="bullet">
+                                <h5><b>Parents:</b></h5>
+                                <p class="h5 text-muted">
+                                    Parents are generally the sole source of financial support for their children. The needs of children
+                                    extend from school fees and living expenses to hefty university fees, later on in life. An
+                                    unfortunate event with a parent can jeopardise their future and deprive children of life’s
+                                    opportunities. Parents must ensure that this scenario does not come to pass, by purchasing a term
+                                    insurance policy. This policy will pay out a lump sum and/or income to satisfy their children’s
+                                    expenses, in the event of any mishap of the parent(s).
+                                </p>
+                            </li>
+
+                            <li class="bullet">
+                                <h5><b>Newly-married couple:</b></h5>
+                                <p class="h5 text-muted">
+                                    Roses, chocolates and movie tickets are great, but here’s a truly long-lasting gift for your spouse
+                                    – term insurance. This gift will give your spouse more than momentary joy, and it will secure their
+                                    future. Term Insurance assures the spouse of financial support in case of a mishap with the insured
+                                    person and should be purchased as soon as possible by married couples.
+                                </p>
+                            </li>
+                            <li class="bullet">
+                                <h5><b>Working Women:</b></h5>
+                                <p class="h5 text-muted">
+                                    The women of today are on an equal footing with men, whether it be managing their finances or
+                                    providing for their family. Today, a family is as dependent on the woman’s income as it is on the
+                                    man’s. This dependency brings with it the need to financially secure your loved ones in case
+                                    something happens to you. A Term Insurance plan assures that your parents/spouse/children are
+                                    financially secured even in your absence. It ensures that your family does not have to compromise on
+                                    their lifestyle and can continue with the goals you set for them. The term insurance cover amount
+                                    also helps to take care of any outstanding liabilities like home loan, auto loan, education loan,
+                                    and more. Not only this, but some term insurance plans also come with the added benefit of a
+                                    critical illness^ cover that provides a payout if you are diagnosed with a serious illness like
+                                    breast or cervical cancer.
+                                </p>
+                            </li>
+                            <li class="bullet">
+                                <h5><b>Young Professionals:</b></h5>
+                                <p class="h5 text-muted">
+                                    Young professionals are just starting their careers. Many of them are not yet married and have no
+                                    financial dependents. However this is likely to change in the future as they get married or support
+                                    their parents/relatives. Such individuals should buy term insurance now rather than wait. This is
+                                    because once a policy is purchased, the premiums stay the same throughout an individual’s life. On
+                                    the other hand waiting to buy term insurance in the future can force customers to pay higher
+                                    premiums because term insurance premiums incease with age.
+                                </p>
+                            </li>
+                            <li class="bullet">
+                                <h5><b>Taxpayers:</b></h5>
+                                <p class="h5 text-muted">
+                                    Term Insurance premiums paid are allowed as a deduction from taxable income under <a href="#"
+                                                                                                                         class="text-decoration-none">Section 80C</a><sup>^^</sup> of the Income Tax Act,
+                                    1961<sup>^^</sup>. The term insurance payouts on maturity are also exempt from tax subject to
+                                    conditions under Section 10(10D)<sup>^^</sup>. Hence taxpayers can use term insurance to reduce
+                                    their tax burden significantly.
+                                </p>
+                            </li>
+                            <li class="bullet">
+                                <h5><b>Self Employed:</b></h5>
+                                <p class="h5 text-muted">
+                                    As a self-employed person, you face many challenges. Unlike salaried individuals, you do not earn a
+                                    fixed monthly income; you have an uneven source of income that depends on the ups and downs of the
+                                    market. Plus, you may have also taken a business or personal loan from creditors, banks, or even
+                                    your family and friends. Hence, buying a term insurance plan to secure your family becomes even more
+                                    important for you. A term life insurance policy can ensure that your family remains financially
+                                    secure even in your absence.
+                                </p>
+                            </li>
+                            <li class="bullet">
+                                <h5><b>SIP Investors:</b></h5>
+                                <p class="h5 text-muted">
+                                    Investors in mutual fund SIPs (Systematic Investment Plan) invest a fixed amount every month in a
+                                    mutual fund. The wealth creation in an SIP is driven by a stream of regular instalments which
+                                    compound over time. However, an unfortunate event of the investor can stop the flow of instalments.
+                                    Term Insurance can protect the SIP by providing the nominees of the insured person with funds to
+                                    continue the SIP.
+                                </p>
+                            </li>
+                            <li class="bullet">
+                                <h5><b>Retirees:</b></h5>
+                                <p class="h5 text-muted">
+                                    Retired persons need to have term insurance if they have dependant spouses or families. Buying term
+                                    life insurance can also be a way of leaving an inheritance for their families. This is because, Term
+                                    Insurance is paid out to nominees in case of any mishap with the insured person. The payment of Term
+                                    Insurance is also tax-free subject to conditions under Section 10(10D)<sup>^^</sup> of the Income
+                                    Tax Act,1961<sup>^^</sup>.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row sub-div2-color">
+        <div class="col">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col">
+                        <p class="h4 text-dark text-lg-start mt-3 mt-lg-4">
+                            <b>TYPES OF TERM PLANS</b>
+                        </p>
+                        <p class="h5 text-muted text-start text-lg-start mt-3 mt-lg-4">
+                            Z<sup>X</sup> Pru iProtect Smart offers
+                            different term plan options to suit your different needs. Below are the variants you can choose from:
+                        </p>
+                    </div>
+                </div>
+                <div class="row my-5">
+                    <div class="col-md-4 my-3 my-md-2 card-group">
+                        <div class="card transform">
+                            <img class="card-img-top"
+                                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMhirRjoj1i1gH6HUNBvzJ8Rmf4OhZLPerog&usqp=CAU"
+                                 alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title text-center my-1">Basic Term Plan</h5>
+                                <p class="card-text my-4">
+                                    The basic term plan comes with a life cover that is paid in the form of a
+                                    lump sum in case of an unfortunate event with the policyholder during the policy term. There is no
+                                    maturity benefit in this plan.
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-grid">
+                                    <a href="#" class="btn btn-primary"><b>View</b></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 my-3 my-md-2 card-group">
+                        <div class="card transform">
+                            <img class="card-img-top"
+                                 src="data:image/jpeg;base64,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"
+                                 alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title text-center my-1">Term Insurance with Critical Illness cover</h5>
+                                <p class="card-text my-4">
+                                    In addition to life cover, this term plan comes with a critical illness
+                                    cover that is paid out in case the policyholder is diagnosed with any of the 34 specified critical
+                                    illnesses like cancer, heart attack, or any other critical illness
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-grid">
+                                    <a href="#" class="btn btn-primary"><b>View</b></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 my-3 my-md-2 card-group">
+                        <div class="card transform">
+                            <img class="card-img-top"
+                                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvvhVMITmtBIvkgckOgApAel-pc1rtMAVRuQ&usqp=CAU"
+                                 alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title text-center my-1">Term Insurance with Accidental Death Cover</h5>
+                                <p class="card-text my-4">
+                                    A term plan that gives additional cover in case of any mishap due to an
+                                    accident.
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-grid">
+                                    <a href="#" class="btn btn-primary"><b>View</b></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row my-5">
+                    <div class="col-md-4 my-3 my-md-2 card-group">
+                        <div class="card transform">
+                            <img class="card-img-top" src="data:image/jpeg;base64,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" "
+                                 alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title text-center my-1">Term Insurance with Limited Pay</h5>
+                                <p class="card-text my-4">
+                                    A term plan that lets you get done with all your premium payments in a few
+                                    years while the plan benefits continue for the entire policy term.
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-grid">
+                                    <a href="#" class="btn btn-primary"><b>View</b></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 my-3 my-md-2 card-group">
+                        <div class="card transform">
+                            <img class="card-img-top"
+                                 src="data:image/jpeg;base64,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"
+                                 alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title text-center my-1">All in One Term plan</h5>
+                                <p class="card-text my-4">
+                                    All in One is a term plan that offers all benefits under one plan itself.
+                                    High life cover, 34 critical illnesses^ covers and accidental cover+ – complete protection for you
+                                    and your loved ones.
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-grid">
+                                    <a href="#" class="btn btn-primary"><b>View</b></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 my-3 my-md-2 card-group">
+                        <div class="card transform">
+                            <img class="card-img-top"
+                                 src="https://iiflinsurance.com/images/term-insurance-with-return-of-premium.jpg" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title text-center my-1">Term plan with Return on Premium</h5>
+                                <p class="card-text my-4">
+                                    A term insurance with return of premium provides a life cover and returns
+                                    the premiums paid during the tenure of the policy. Upon surviving the policy term, you get a
+                                    survival benefit that is the sum total of all your premiums.
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-grid">
+                                    <a href="#" class="btn btn-primary"><b>View</b></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col">
+                        <p class="h4 text-dark text-lg-start mt-3 mt-lg-4">
+                            <b>FEATURES OF TERM INSURANCE</b>
+                        </p>
+                        <p class="h5 text-muted text-start text-lg-start mt-3 mt-lg-4">
+                            Here are some features of term insurance
+                            plans:
+                        </p>
+
+                        <ul class="mt-4">
+                            <li class="bullet">
+                                <h5><b>Low entry age:</b></h5>
+                                <p class="h5 text-muted">
+                                    Term insurance plans have a minimum entry age of 18 years only. You can buy a term plan and secure
+                                    your loved ones as soon as you reach adulthood
+                            </li>
+
+                            <li class="bullet">
+                                <h5><b>Long term protection:</b></h5>
+                                <p class="h5 text-muted">
+                                    The term plan offers long policy tenures of up to 40 years that allow you to protect your family
+                                    members for a long time
+                            </li>
+                            <li class="bullet">
+                                <h5><b>Easy to buy:</b></h5>
+                                <p class="h5 text-muted">
+                                    Term insurance can be purchased online in minimal steps. You can compare different plans and
+                                    features with a few clicks and pick a plan that suits your needs the best. The submission of
+                                    documents, premium payment, and all other customer queries can be submitted online from the comfort
+                                    of your home or office
+                            </li>
+                            <li class="bullet">
+                                <h5><b>Easy premium payment options:</b></h5>
+                                <p class="h5 text-muted">
+                                    Term insurance plans offer flexible premium payment options like monthly, quarterly or yearly
+                                    payment
+                            </li>
+                            <li class="bullet">
+                                <h5><b>Adjustable cover:</b></h5>
+                                <p class="h5 text-muted">
+                                    The term plan is flexible and allows you to increase or decrease the sum assured basis your
+                                    financial condition
+                            </li>
+                            <li class="bullet">
+                                <h5><b>Liability protection:</b></h5>
+                                <p class="h5 text-muted">
+                                    The sum assured of a term insurance plan can be used to ensure your family’s financial security and
+                                    protect them from debt liabilities like a loan repayment
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row mb-5">
+                    <div class="col-lg-12">
+                        <p class="h4 text-dark text-lg-start mt-3 mt-lg-4">
+                            <b>WHEN IS THE RIGHT TIME TO BUY A TERM INSURANCE PLAN?</b>
+                        </p>
+                        <p class="h5 text-muted text-start text-lg-start mt-3 mt-lg-4">
+                            The right time to buy a term insurance plan
+                            is as soon as you can. The chances of getting lifestyle diseases increase as you age, and so do
+                            insurance costs. When you invest in a term plan at a young age, you get an insurance policy at an
+                            affordable premium. Hence, it may be advised to invest in term life insurance when you are young. This
+                            will save a lot of money in the long run. Moreover, it will also provide you and your loved ones with
+                            extended coverage and financial security from an early age.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    @*footer*@
+
+@*       @Html.Partial("_Footer")
+       @await Html.PartialAsync("_Footer")*@
+      <partial name="_Footer" />
+    
+</div>    @*remove this when modify route*@
+

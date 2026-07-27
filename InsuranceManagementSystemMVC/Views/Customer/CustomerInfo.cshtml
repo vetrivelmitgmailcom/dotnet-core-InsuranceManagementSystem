@@ -1,0 +1,160 @@
+﻿@model IEnumerable<InsuranceManagementSystemMVC.Models.Customer>
+
+@{
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: '@TempData["Title"]',
+                html: '@TempData["SuccessMessage"]<br>@TempData["FooterMessage"]',
+                confirmButtonColor: '#3B4ACC',
+                confirmButtonText: 'OK',
+                allowOutsideClick: false,
+                position: 'center',
+                backdrop: 'rgba(0,0,0,0.9)'
+            });
+        </script>
+    }
+
+
+    ViewData["Title"] = "Customer Information";
+
+
+    HttpContextAccessor.HttpContext?.Session.SetString("ViewFrom", "CustomerInfo");
+
+    /***************** <a> tag Active *****************/
+    ViewData["View"] = "CustomerInfo";
+    TempData["ViewFrom"] = "CustomerInfo";
+
+}
+
+
+<div class="container-fluid">
+    <div class="row bg-breadcrumb">
+        <div class="col-lg-12">
+            <div class="container">
+                <div class="row fw-semibold fst-italic my-5">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="text-decoration-none h5">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#" class="text-decoration-none h5">Customer</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><span class="h5">Customer details</span></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="container">
+                <div class="h1 my-lg-3 text-nav-color">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMQ4aKQnBi99oxSf0dk_O7rVG3H1AB_s3kA&usqp=CAU"
+                         alt="family" class="img-fluid rounded-pill" style="width:50px;height:50px;">&nbsp;Customer Details
+                </div>
+                <div class="row">
+                    <div class="col-8 offset-4 col-lg-4 offset-lg-8">
+                        <input type="text" class="form-control my-3 my-lg-2" id="searchHere"
+                               placeholder="Start typing to filter...">
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <caption>List of Customers</caption>
+                        <thead class="bs-nav-color table-group-divider text-white">
+                            <tr class="text-center">
+                                <th scope="col">@Html.DisplayName("#")</th>
+                                <th scope="col">@Html.DisplayNameFor(model => model.CustomerId)</th>
+                                <th scope="col">Customer Name</th>
+                                <th scope="col">@Html.DisplayNameFor(model => model.PersonalDetails.First().Gender.Gender)</th>
+                                <th scope="col">@Html.DisplayNameFor(model => model.PersonalDetails.First().MobileNumber)</th>
+                                <th scope="col">@Html.DisplayNameFor(model => model.PersonalDetails.First().Email)</th>
+                                <th scope="col">@Html.DisplayName("No of Policy")</th>
+                                <th scope="col" colspan="4">@Html.DisplayName("Content")</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider" id="customerList">
+                            @{
+                                var count = 1;
+                                foreach (var item in Model)
+                                {
+                                    <tr class="text-center">
+                                        <th scope="row">@count</th>
+                                        <td>@Html.DisplayFor(modelItem => item.CustomerId)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.FirstName)&nbsp;@Html.DisplayFor(modelItem => item.LastName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.PersonalDetails.First().Gender.Gender)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.PersonalDetails.First().MobileNumber)</td>
+                                        <td class="no-underline">@Html.DisplayFor(modelItem => item.PersonalDetails.First().Email, new { style = "text-decoration: none;" })</td>
+                                        <td class="text-danger fw-bolder blink">@Html.DisplayFor(modelItem => item.PolicyDetails.Count)</td>
+                                        <td><a class="btn btn-outline-primary me-lg-3 rounded-pill" asp-controller="Customer" asp-action="CustomerInfoMore" asp-route-customerId="@item.CustomerId">&nbsp;&nbsp;View&nbsp;&nbsp;</a></td>
+                                        <td><a class="btn btn-outline-success rounded-pill" asp-controller="Customer" asp-action="UpdateCustomer" asp-route-customerId="@item.CustomerId">Update</a></td>
+                                        <td><a class="deleteCustomer btn btn-outline-danger rounded-pill" asp-controller="Customer" asp-action="Delete" asp-route-customerId="@item.CustomerId">Delete</a></td>
+                                        <td><a class="btn btn-outline-success rounded-pill" asp-controller="Policy" asp-action="AddPolicy" asp-route-customerId="@item.CustomerId">Add policy</a></td>
+                                    </tr>
+                                    count++;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+    $(document).ready(function () {
+        var viewFrom = '@HttpContextAccessor.HttpContext?.Session.GetString("ViewFrom")';
+
+        $('.deleteCustomer').click(function (e) {
+            e.preventDefault();
+            //HttpContextAccessor.HttpContext?.Session.SetString("ViewFrom", "CustomerInfo");    //you cannot use server-side Razor syntax directly in client-side JavaScript. Instead, you need to use an AJAX request to send the data to the server and set the session value there.
+           // var customerId = $(this).attr('asp-route-customerId'); // it is not working
+
+            var hrefValue = $(this).attr('href');
+            var customerId = hrefValue.split('=')[1];     // it is working
+            console.log('href:', hrefValue);
+            console.log('Customer ID:', customerId); 
+
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'Do you want to delete this customer?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3B4ACC',
+                confirmButtonText: 'Yes, Delete!',
+                cancelButtonColor: '#d33',
+                allowOutsideClick: false,
+                position: 'center-right',
+                backdrop: 'rgba(0,0,0,0.8)'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                   //window.location.href = '/Customer/Delete?customerId=' + customerId;
+                   //window.location.href = hrefValue;
+
+
+                    // Append the viewFrom as a query parameter to the URL
+                    var redirectUrl = hrefValue + '&viewFrom=' + encodeURIComponent(viewFrom);
+                    window.location.href = redirectUrl;
+                }
+            });
+        });
+    });
+
+    </script>
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#searchHere").on("keyup", function () {
+            let value = $(this).val().toLowerCase();
+            $("#customerList tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

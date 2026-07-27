@@ -1,0 +1,410 @@
+﻿@model InsuranceManagementSystemMVC.Models.PolicyDetail
+
+@{
+    ViewData["Title"] = "Detailed Information of the Policy";
+
+
+
+
+    if (HttpContextAccessor.HttpContext != null)
+    {
+        var viewFrom = HttpContextAccessor.HttpContext.Session.GetString("ViewFrom");
+        switch (viewFrom)
+        {
+            case "PolicyInfo":
+                HttpContextAccessor.HttpContext?.Session.SetString("ViewTo", "PolicyInfo");
+                break;
+            case "GetPolicyInfo":
+                HttpContextAccessor.HttpContext?.Session.SetString("ViewTo", "GetPolicyInfo");
+                break;
+            case "CustomerInfoMore":
+                HttpContextAccessor.HttpContext?.Session.SetString("ViewTo", "CustomerInfoMore");
+                break;
+            case "PolicyInfoMore":    //manual page load
+                HttpContextAccessor.HttpContext?.Session.SetString("ViewTo", "CustomerInfo");
+                break;
+            default:
+                HttpContextAccessor.HttpContext?.Session.SetString("ViewTo", "Not");
+                break;
+        }
+    }
+
+    var viewTo = HttpContextAccessor.HttpContext?.Session.GetString("ViewTo");
+    HttpContextAccessor.HttpContext?.Session.SetString("ViewFrom", "PolicyInfoMore");
+
+
+    /***************** <a> tag Active *****************/
+    switch (TempData["ViewFrom"])
+    {
+        case "PolicyInfo":
+            ViewData["View"] = "PolicyInfoMore_PolicyInfo";
+            break;
+        case "GetPolicyInfo":
+            ViewData["View"] = "PolicyInfoMore_GetPolicyInfo";
+            break;
+        case "CustomerInfoMore":
+            ViewData["View"] = "PolicyInfoMore_CustomerInfoMore";
+            break;
+        default:
+            ViewData["View"] = "CustomerInfo";
+            break;
+    }
+}
+
+
+<div class="container-fluid">
+    <div class="row bg-breadcrumb">
+        <div class="col-lg-12">
+            <div class="container">
+                <div class="row fw-semibold fst-italic my-5">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a asp-controller="Home" asp-action="Index" class="text-decoration-none h5">Home</a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="#" class="text-decoration-none h5">Policy</a></li>
+                            <li class="breadcrumb-item">
+                                <a asp-controller="Policy" asp-action="@viewTo" class="text-decoration-none h5">Policy details</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                <span class="h5">
+                                    Policy details for @Html.DisplayFor(model => model.Customer.FirstName)&nbsp;@Html.DisplayFor(model => model.Customer.LastName)
+                                </span>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="container">
+                <div class="h1 my-lg-3 text-nav-color">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMQ4aKQnBi99oxSf0dk_O7rVG3H1AB_s3kA&usqp=CAU"
+                         alt="family" class="img-fluid rounded-pill" style="width:50px;height:50px;">&nbsp;Policy Details
+                </div>
+                <div class="row g-3 my-5 justify-content-center bs-form-view rounded-5 border shadow-lg text-nav-color bg-breadcrumb">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-4 offset-lg-4 my-5">
+                                <center>
+                                    <label class="form-label fw-bold h1">
+                                        Policy Details
+                                    </label>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayName("Customer Name")
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6 ">
+                        @Html.DisplayFor(model => model.Customer.FirstName)&nbsp;@Html.DisplayFor(model => model.Customer.LastName)
+                    </div>
+
+
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayNameFor(model => model.Insurance.InsuranceType)
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6">
+                        @Html.DisplayFor(model => model.Insurance.InsuranceType)
+                    </div>
+
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayNameFor(model => model.PolicyValue.AmountOfPeriod)
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6">
+                        @Html.DisplayFor(model => model.PolicyValue.AmountOfPeriod)
+                    </div>
+
+
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayNameFor(model => model.PolicyValue.InsuredDeclaredValue)
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6">
+                        @Html.DisplayFor(model => model.PolicyValue.InsuredDeclaredValue)
+                    </div>
+
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayNameFor(model => model.PolicyValue.PremiumToBePaid)
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6">
+                        @Html.DisplayFor(model => model.PolicyValue.PremiumToBePaid)
+                    </div>
+
+
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayNameFor(model => model.PolicyValue.ModeOfPremium.ModeOfPremium)
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6">
+                        @Html.DisplayFor(model => model.PolicyValue.ModeOfPremium.ModeOfPremium)
+                    </div>
+
+
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayNameFor(model => model.DateOfIssue)
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6">
+                        @Html.DisplayFor(model => model.DateOfIssue)
+                    </div>
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayNameFor(model => model.DateOfExpire)
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6">
+                        @Html.DisplayFor(model => model.DateOfExpire)
+                    </div>
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayNameFor(model => model.Status.Status)
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6">
+                        @Html.DisplayFor(model => model.Status.Status)
+                    </div>
+
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2 mt-4">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayName("Nominee Details")
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1 mt-4"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6 mt-3">
+                        <a id="showNomineeBtn" class="btn btn-outline-primary rounded-pill">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Show&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    </div>
+
+                    <div class="col-4 offset-1 col-lg-2 offset-lg-2 mt-4">
+                        <label class="form-label fw-bold h5">
+                            @Html.DisplayName("Payment Details")
+                        </label>
+                    </div>
+                    <div class="col-1 col-lg-1 mt-4"><label class="form-label fw-bold h5">:</label></div>
+                    <div class="col-6 col-lg-6 mt-3">
+                        <a id="showPaymentBtn" class="btn btn-outline-primary rounded-pill">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Show&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    </div>
+                    <div class="col-6 col-lg-6 mt-5">
+                    </div>
+                </div>
+
+                <div id="nomineeDetails" class="row my-5">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-4 offset-lg-4 mt-5 text-nav-color">
+                                <center>
+                                    <label class="form-label fw-bold h1">
+                                        Nominee Details
+                                    </label>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row g-3 mt-3 justify-content-center bs-form-view rounded-5 border shadow-lg text-nav-color bg-breadcrumb">
+                            <div class="col-lg-12">
+                                <table class="table table-hover">
+                                    <caption>List of Nominee</caption>
+                                    <thead class="bs-nav-color table-group-divider text-white">
+                                        <tr class="text-center">
+                                            <th scope="col">#</th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.NomineeDetails.First().NomineeName)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.NomineeDetails.First().Gender.Gender)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.NomineeDetails.First().Dob)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.NomineeDetails.First().MobileNumber)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.NomineeDetails.First().AadharNumber)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.NomineeDetails.First().PanNumber)
+                                            </th>
+
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.NomineeDetails.First().Relationship.Relationship)
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-group-divider" id="policyList">
+                                        @{
+                                            var count = 1;
+                                            foreach (var item in Model.NomineeDetails)
+                                            {
+                                                <tr class="text-center">
+                                                    <th scope="row">@count</th>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.NomineeName)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Gender.Gender)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Dob)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.MobileNumber)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.AadharNumber)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.PanNumber)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Relationship.Relationship)
+                                                    </td>
+                                                </tr>
+                                                count++;
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="paymentDetails" class="row my-5">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-4 offset-lg-4 mt-5 text-nav-color">
+                                <center>
+                                    <label class="form-label fw-bold h1">
+                                        Payment Details
+                                    </label>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row g-3 mt-3 justify-content-center bs-form-view rounded-5 border shadow-lg text-nav-color bg-breadcrumb">
+                            <div class="col-lg-12">
+                                <table class="table table-hover">
+                                    <caption>List of Payments</caption>
+                                    <thead class="bs-nav-color table-group-divider text-white">
+                                        <tr class="text-center">
+                                            <th scope="col">#</th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PolicyValue.Payments.First().Amount)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PolicyValue.Payments.First().PaymentType)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PolicyValue.Payments.First().PaymentDate)
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-group-divider" id="policyList">
+                                        @{
+                                            var count2 = 1;
+                                            foreach (var item in Model.PolicyValue.Payments)
+                                            {
+                                                <tr class="text-center">
+                                                    <th scope="row">@count2</th>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Amount)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.PaymentType.PaymentType)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.PaymentDate)
+                                                    </td>
+                                                </tr>
+                                                count2++;
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-5"></div>
+                <div class="row my-5"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    // Hide the nominee details div on page load
+    $("#nomineeDetails").hide();
+
+    $('#showNomineeBtn').click(function () {
+        // Toggle the content div with animation
+        $('#nomineeDetails').toggle(1000, function () {
+            // Change the button text based on the state of the Nominee details div
+            var isContentVisible = $('#nomineeDetails').is(':visible');
+            if (isContentVisible) {
+                $('#showNomineeBtn').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hide&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+            } else {
+                $('#showNomineeBtn').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Show&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+            }
+        });
+    });
+
+
+        $("#paymentDetails").hide();
+
+    $('#showPaymentBtn').click(function () {
+        // Toggle the content div with animation
+        $('#paymentDetails').toggle(1000, function () {
+            // Change the button text based on the state of the Payment details div
+            var isContentVisible = $('#paymentDetails').is(':visible');
+            if (isContentVisible) {
+                $('#showPaymentBtn').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hide&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+            } else {
+                $('#showPaymentBtn').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Show&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+            }
+        });
+    });
+</script>

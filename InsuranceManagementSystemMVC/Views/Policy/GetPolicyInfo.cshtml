@@ -1,0 +1,278 @@
+﻿@model IEnumerable<InsuranceManagementSystemMVC.Models.PolicyDetail>
+
+@{
+    ViewData["Title"] = "Policy Information";
+
+
+
+    HttpContextAccessor.HttpContext?.Session.SetString("ViewFrom", "GetPolicyInfo");
+
+
+    /***************** <a> tag Active *****************/
+    ViewData["View"] = "GetPolicyInfo";
+    TempData["ViewFrom"] = "GetPolicyInfo";
+}
+
+
+<div class="container-fluid">
+    <div class="row bg-breadcrumb">
+        <div class="col-lg-12">
+            <div class="container">
+                <div class="row fw-semibold fst-italic my-5">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="text-decoration-none h5">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#" class="text-decoration-none h5">Policy</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><span class="h5">Get Policy details</span></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="container">
+                <div class="h1 my-lg-3 text-nav-color">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMQ4aKQnBi99oxSf0dk_O7rVG3H1AB_s3kA&usqp=CAU"
+                         alt="family" class="img-fluid rounded-pill" style="width:50px;height:50px;">&nbsp;Policy Details
+                </div>
+
+                <div class="row">
+                    <div class="col-6 offset-0 col-lg-3 offset-lg-4">
+                        <input type="text" class="form-control mb-3 mb-lg-2" id="DateOfIssue" placeholder="Date of Issue (dd-mm-yyyy)">
+                    </div>
+                    <div class="col-6 offset-0 col-lg-3 offset-lg-0">
+                        <input type="text" class="form-control mb-3 mb-lg-2" id="AmountOfPeriod" placeholder="No of period">
+                        <input type="text" class="form-control mb-3 mb-lg-2" id="searchHere" placeholder="Start typing to filter...">
+                    </div>
+                    <div class="col-12 col-lg-2 offset-lg-0">
+                        <div class="d-grid gap-2">
+                            <button type="button" id="searchBtn" class="btn btn-primary mb-2 mb-lg-2 btn-search">Search</button>
+                            <button type="button" id="clear" class="btn btn-danger mb-2 mb-lg-2">Clear</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-12 offset-lg-0">
+                        <div class="table-responsive" id="post-result">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    /*******************************************partial view********************************************/
+    $(document).ready(function () {
+        $("#clear").hide();
+        $("#searchHere").hide();
+        var currentDate = new Date();
+
+        $("#searchBtn").click(function () {
+            var DateOfIssue = $("#DateOfIssue").val();
+            var AmountOfPeriod = $("#AmountOfPeriod").val();
+
+            var title = "";
+            var message = "";
+            var icon = "info";
+            var flag=true;
+
+            function isValidDate(dateString) {
+                // Check if date string matches pattern
+                var pattern = /^(\d{2})-(\d{2})-(\d{4})$/;
+                if (!pattern.test(dateString)) {
+                    return false;
+                }
+
+                // Parse date components from string
+                var day = parseInt(dateString.substring(0, 2));
+                var month = parseInt(dateString.substring(3, 5));
+                var year = parseInt(dateString.substring(6, 10));
+
+                // Check if year is valid
+                if (year < 1000 || year > 9999) {
+                    return false;
+                }
+
+                // Check if month is valid
+                if (month < 1 || month > 12) {
+                    return false;
+                }
+
+                // Check if day is valid
+                var maxDays = new Date(year, month, 0).getDate();
+                if (day < 1 || day > maxDays) {
+                    return false;
+                }
+
+                // Date is valid
+                return true;
+            }
+
+
+            function compareDate(DateOfIssue, currentDate) {
+                const dateParts = DateOfIssue.split('-');
+                const isoDateOfIssue = dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0];
+
+                const d1 = new Date(isoDateOfIssue);
+                const d2 = currentDate;
+
+                if (d1 > d2)
+                {
+                    return false; 
+                }
+               return true;
+            }
+
+
+
+            //validation start
+            if (DateOfIssue === "" && AmountOfPeriod === "") {
+                title = "Date of Issue and Amount Of Period is Empty!";
+                message = "Please enter the Date of Issue and Amount of period";
+                flag=false;
+            }
+            else if (DateOfIssue === "") {
+                title = "Date of Issue is Empty!";
+                message = "Please enter the Date of Issue";
+                flag = false;
+            }
+            else if (DateOfIssue !== "") {
+
+                if (!isValidDate(DateOfIssue)) {
+                    title = "Date of Issue is Invalid!";
+                    message = "Please enter the valid Date of Issue";
+                    icon = "warning";
+                    flag = false;
+                }
+                else if (!compareDate(DateOfIssue, currentDate)) {
+                    title = "Date of Issue is Invalid!";
+                    message = "Date of Issue cannot be in the future";
+                    icon = "warning";
+                    flag = false;
+                }
+                else if (AmountOfPeriod === "") {
+                    title = "Amount Of Period is Empty!";
+                    message = "Please enter the Amount of period";
+                    icon = "info";
+                    flag = false;
+                }
+                else if (AmountOfPeriod !== "") {
+                    var _AmountOfPeriod = AmountOfPeriod;
+                    if (isNaN(_AmountOfPeriod)) {
+                        title = "Amount Of Period is Invalid!";
+                        message = "Please enter the valid Amount Of Period";
+                        icon = "warning";
+                        flag = false;
+                    }
+                    else
+                    {
+                        if (AmountOfPeriod == 0)
+                        {
+                            title = "Amount Of Period can't be Zero!";
+                            message = "Please enter the valid Amount Of Period";
+                            icon = "warning";
+                            flag = false;
+                        }
+                    }
+                }
+            }
+            //validation end
+
+
+
+            if (!flag) {
+                Swal.fire({
+                    icon: icon,
+                    title: title,
+                    html: message,
+                    confirmButtonColor: '#3B4ACC',
+                    confirmButtonText: 'OK',
+                    allowOutsideClick: true,
+                    position: 'center',
+                    backdrop: 'rgba(0,0,0,0.7)'
+                });
+            }
+            else {
+                $.ajax({
+                    type: "Get",
+                    url: "/Policy/GetPolicyInfoPartial/?DateOfIssue=" + DateOfIssue + "&AmountOfPeriod=" + AmountOfPeriod,
+                    dataType: "text",
+                    success: function (res) {
+                        if (res === "") {
+
+                            //$("#DateOfIssue").val("");
+                            //$("#AmountOfPeriod").val("");
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Records Not Found!',
+                                html: 'A record was not found for the condition you entered.',
+                                confirmButtonColor: '#3B4ACC',
+                                confirmButtonText: 'OK',
+                                allowOutsideClick: true,
+                                position: 'center',
+                                backdrop: 'rgba(0,0,0,0.7)'
+                            });
+                        }
+                        else {
+                            console.log('Get the Policy is Successfull')
+                            console.log(res)
+
+                            $('#post-result').html(res);
+                            $("#searchBtn").hide();
+                            $("#DateOfIssue").val("");
+                            $("#DateOfIssue").hide(500);
+                            $("#AmountOfPeriod").hide();
+                            $("#AmountOfPeriod").val("");
+                            $("#clear").show();
+                            $("#searchHere").show();
+                        }
+                    },
+                    error: function (req, status, error) {
+                        console.log(res);
+                        console.log(status)
+                        console.log(error);
+                    }
+                });
+            }
+        });
+
+
+        $("#clear").click(
+            function () {
+                $('#post-result').html("");
+                $("#searchBtn").show();
+                $("#clear").hide();
+                $("#searchHere").hide();
+                $("#DateOfIssue").show(500);
+                $("#AmountOfPeriod").show();
+            });
+
+
+
+        $("#DateOfIssue").on('keypress', function () {
+            if ($(this).val().length == 2) {
+                $("#DateOfIssue").val($(this).val() + "-");
+            } else if ($(this).val().length == 5) {
+                $("#DateOfIssue").val($(this).val() + "-");
+            }
+        });
+    });
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $("#searchHere").on("keyup", function () {
+            let value = $(this).val().toLowerCase();
+            $("#policyList tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
