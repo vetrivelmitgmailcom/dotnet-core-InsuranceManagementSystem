@@ -1,0 +1,6 @@
+1)if you use SSMS Directly import bacpac file
+
+2)if you use Azure Data studio use below cmd Query,
+
+Query:
+SqlPackage /Action:Import /SourceFile:"C:\Users\Admin\Documents\My Project1\My Project\InsuranceManagementSystemMVC_21-07-2023_\insurance(21-07-23).bacpac" /TargetServerName:"(localdb)\MSSQLLocalDB" /TargetDatabaseName:"insurance" /TargetTrustServerCertificate:True
