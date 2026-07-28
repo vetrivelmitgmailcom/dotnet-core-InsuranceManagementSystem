@@ -415,7 +415,7 @@ namespace InsuranceManagementSystemMVC.Repository
                                      CustomerId = customerGroup.Key,
                                      FirstName = customerGroup.First().customer.FirstName,
                                      LastName = customerGroup.First().customer.LastName,
-                                     PersonalDetails = customerGroup.Select(c => new PersonalDetail        //(or)PersonalDetails = customerGroup.Select(c => c.personalDetail).ToList()
+                                     PersonalDetails = customerGroup.Where(c => c.personalDetail != null).Select(c => new PersonalDetail        //(or)PersonalDetails = customerGroup.Select(c => c.personalDetail).ToList()
                                      {
                                          Gender = c.personalDetail.Gender,
                                          MobileNumber = c.personalDetail.MobileNumber,

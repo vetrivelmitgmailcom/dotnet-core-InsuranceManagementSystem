@@ -1,16 +1,17 @@
 using CommonUtility;
+using InsuranceManagementSystemMVC.Filters;
+using InsuranceManagementSystemMVC.Middleware;
 using InsuranceManagementSystemMVC.Models;
 using InsuranceManagementSystemMVC.Repository;
-using Microsoft.Extensions.Logging.Console;
-using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
-using Serilog;
-using Microsoft.AspNetCore.Http;
-using InsuranceManagementSystemMVC.Filters;
 using Microsoft.AspNetCore.Builder;
-using InsuranceManagementSystemMVC.Middleware;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Data.SqlClient;
 using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using Microsoft.VisualStudio.Web.CodeGeneration.Design;
+using Serilog;
 using System.ComponentModel;
 
 namespace InsuranceManagementSystemMVC

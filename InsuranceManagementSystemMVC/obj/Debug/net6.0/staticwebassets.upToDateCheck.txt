@@ -1,0 +1,16 @@
+wwwroot\css\login.css
+wwwroot\css\style.css
+wwwroot\favicon.ico
+wwwroot\images\Insurance.ico
+wwwroot\images\PageProcessed.png
+wwwroot\images\WhyBuyTerm.png
+wwwroot\images\addCustomerBg.jpg
+wwwroot\images\addCustomerBg.png
+wwwroot\images\logo1.png
+wwwroot\images\logo2.png
+wwwroot\images\rocket.png
+wwwroot\images\temp.png
+wwwroot\images\term1.jpg
+wwwroot\images\what_term_insurance.png
+wwwroot\lib\bootstrap\LICENSE
+wwwroot\lib\jquery\LICENSE.txt

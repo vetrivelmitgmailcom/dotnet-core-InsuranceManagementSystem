@@ -1,18 +1,21 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 namespace InsuranceManagementSystemMVC.Models;
 
 public partial class InsuranceContext : DbContext
 {
+    private readonly IConfiguration _configuration;
     public InsuranceContext()
     {
     }
 
-    public InsuranceContext(DbContextOptions<InsuranceContext> options)
+    public InsuranceContext(DbContextOptions<InsuranceContext> options, IConfiguration configuration)
         : base(options)
     {
+        _configuration = configuration;
     }
 
     public virtual DbSet<Admin> Admins { get; set; }
@@ -59,12 +62,15 @@ public partial class InsuranceContext : DbContext
     #region logging.console
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        var cs = _configuration.GetConnectionString("DefaultConnection");
         optionsBuilder.UseLoggerFactory(loggerFactory);
 
         optionsBuilder.UseLoggerFactory(loggerFactory)
                                 .EnableSensitiveDataLogging()
-                                .UseSqlServer("Data Source=VETRIVELMURUGAN;Initial Catalog = Insurance; User ID = sa; Password=***********;Integrated security=True;TrustServerCertificate=True;");
-        optionsBuilder.UseSqlServer("Data Source=VETRIVELMURUGAN;Initial Catalog = Insurance; User ID = sa; Password=***********;Integrated security=True;TrustServerCertificate=True;")
+                                 //.UseSqlServer("Data Source=VETRIVELMURUGAN;Initial Catalog = Insurance; User ID = sa; Password=***********;Integrated security=True;TrustServerCertificate=True;");
+                                 .UseSqlServer(cs);
+        //optionsBuilder.UseSqlServer("Data Source=VETRIVELMURUGAN;Initial Catalog = Insurance; User ID = sa; Password=***********;Integrated security=True;TrustServerCertificate=True;")
+        optionsBuilder.UseSqlServer(cs)
                                  .LogTo(Console.WriteLine).EnableDetailedErrors();
         base.OnConfiguring(optionsBuilder);
     }

@@ -4,10 +4,11 @@ namespace CommonUtility
 {
     public class InsuranceManagementSystemLogger
     {
-        private const string Path = "C:\\Users\\vetri\\source\\repos\\InsuranceManagementSystemMVC\\InsuranceManagementSystemMVC\\appsettings.json";
+        private string Path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "appsettings.json");//C:\\Users\\vetri\\source\\repos\\InsuranceManagementSystemMVC\\InsuranceManagementSystemMVC\\appsettings.json";
 
         public void BuildConfigure()
         {
+
             var configuration = new ConfigurationBuilder()
                                 .AddJsonFile(Path).Build();       // .AddJsonFile("appsettings.json").Build();
             Log.Logger = new LoggerConfiguration().

@@ -1,0 +1,128 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetFrameworkIdentifier = .NETCoreApp
+build_property.TargetFrameworkVersion = v6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EntryPointFilePath = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = InsuranceManagementSystemMVC
+build_property.RootNamespace = InsuranceManagementSystemMVC
+build_property.ProjectDir = C:\Users\Admin\source\repos\InsuranceManagementSystemMVC\InsuranceManagementSystemMVC\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\Admin\source\repos\InsuranceManagementSystemMVC\InsuranceManagementSystemMVC
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 6.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Customer/CustomerInfo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcQ3VzdG9tZXJJbmZvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Customer/CustomerInfoMore.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcQ3VzdG9tZXJJbmZvTW9yZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Customer/GetCustomerInfo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcR2V0Q3VzdG9tZXJJbmZvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Customer/RegisterCustomer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcUmVnaXN0ZXJDdXN0b21lci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Customer/UpdateCustomer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcVXBkYXRlQ3VzdG9tZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Home/About.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBYm91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Login/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Nominee/NomineeInfo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTm9taW5lZVxOb21pbmVlSW5mby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Payment/AddPayment.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5bWVudFxBZGRQYXltZW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Payment/PaymentsInfo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5bWVudFxQYXltZW50c0luZm8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Policy/AddPolicy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9saWN5XEFkZFBvbGljeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Policy/GetPolicyInfo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9saWN5XEdldFBvbGljeUluZm8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Policy/PolicyInfo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9saWN5XFBvbGljeUluZm8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Policy/PolicyInfoMore.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9saWN5XFBvbGljeUluZm9Nb3JlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Shared/ErrorPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yUGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Shared/_EmptyPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9FbXB0eVBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Shared/_Footer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Gb290ZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Shared/_GetCustomerInfoPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9HZXRDdXN0b21lckluZm9QYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Shared/_GetPolicyInfoPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9HZXRQb2xpY3lJbmZvUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Shared/_LayoutLogin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Admin/source/repos/InsuranceManagementSystemMVC/InsuranceManagementSystemMVC/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-1x4ji2s947
